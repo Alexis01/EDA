@@ -4,8 +4,15 @@ using namespace std;
 
 #define MAX 10000
 
-
-
+bool esPico(int esValle, int V[], pos){
+    bool ok = false;
+    return ok;
+}
+bool esValle(int esValle, int V[], pos){
+    bool ok = false;
+    int izq = V[pos - 1] ? V[pos - 1] :  
+    return ok;
+}
 int solve(int A[], int N){
   int n;
   int s;
