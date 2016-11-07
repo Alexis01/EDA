@@ -1,26 +1,40 @@
 #include <iostream>    // cin, cout
 #include <algorithm>  // max
+#include <limits>
 using namespace std;
 
 #define MAX 10000
 
-bool esPico(int esValle, int V[], pos){
-    bool ok = false;
-    return ok;
+#define utilMax std::numeric_limits<int>::max()
+#define utilMin std::numeric_limits<int>::min()
+
+bool esPico(int esPico, int V[], int pos,int N){
+    int izq = ((pos-1) < 0) ? utilMax : V[pos - 1];
+    int der = ((pos+1) >= N) ? utilMax : V[pos + 1];
+    //cout << "pico izq: "<< izq << " der: " << der <<endl;
+    return esPico > izq && esPico > der; 
 }
-bool esValle(int esValle, int V[], pos){
-    bool ok = false;
-    int izq = V[pos - 1] ? V[pos - 1] :  
-    return ok;
+bool esValle(int esValle, int V[], int pos, int N){
+    int izq = ((pos-1) < 0) ? utilMin : V[pos - 1];
+    int der = ((pos+1) >= N) ? utilMin : V[pos + 1];
+    //cout << "valle izq: "<< izq << " der: " << der <<endl;
+    return esValle < izq && esValle < der;
 }
 int solve(int A[], int N){
   int n;
-  int s;
-  for (n=s=0; n < N ; n++){
-    s += ((A[n] % 2 )==0) ;
+  int picos = 0;
+  int valles = 0;
+  for (n=0; n < N ; n++){
+    if( esPico( A[n], A, n, N ) ){
+        picos++;
+    }else{
+        if( esValle( A[n], A, n, N ) ){
+            valles++;
+        }
+    }
   }
-  
-  return s;
+  cout << picos << " " << valles << endl;
+  return 0;
 }
     
 
@@ -37,11 +51,12 @@ int main(int argc, char **argv){
         for (int j=0; j < N ; j++){
             cin >> A[j];
         }
+        solve(A,N);
     }
-    int result = solve(A,N);
-    cout << "Resultado: " << result << endl;
+    //Comentarlo para el juez
+    /*
     cout << "Press any key to continue, not enter";
     cin >> answer;
-    cout << endl;
+    cout << endl;*/
     return 0;
 }
