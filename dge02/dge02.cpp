@@ -8,32 +8,37 @@ using namespace std;
 #define utilMax std::numeric_limits<int>::max()
 #define utilMin std::numeric_limits<int>::min()
 
-bool esPico(int esPico, int V[], int pos,int N){
-    int izq = ((pos-1) < 0) ? utilMax : V[pos - 1];
-    int der = ((pos+1) >= N) ? utilMax : V[pos + 1];
-    //cout << "pico izq: "<< izq << " der: " << der <<endl;
-    return esPico > izq && esPico > der; 
-}
-bool esValle(int esValle, int V[], int pos, int N){
-    int izq = ((pos-1) < 0) ? utilMin : V[pos - 1];
-    int der = ((pos+1) >= N) ? utilMin : V[pos + 1];
-    //cout << "valle izq: "<< izq << " der: " << der <<endl;
-    return esValle < izq && esValle < der;
-}
-int solve(int A[], int N){
-  int n;
-  int picos = 0;
-  int valles = 0;
-  for (n=0; n < N ; n++){
-    if( esPico( A[n], A, n, N ) ){
-        picos++;
-    }else{
-        if( esValle( A[n], A, n, N ) ){
-            valles++;
+
+int minDer(int p, int V[],int N){
+    int i = p + 1;
+    int _min = V[i];
+    while( i < N ){
+        if( V[i]< _min ){
+            _min = V[i];
         }
+        i++;
     }
-  }
-  cout << picos << " " << valles << endl;
+    return min;
+}
+int maxIzq(int p, int V[],int N){
+    int i = p;
+    int max = V[i];
+    while( i >= 0 ){
+        if( V[i] >  max ){
+            min = V[i];
+        }
+        i--;
+    }
+    return max;
+}
+
+int solve(int p,int A[], int N){
+  int n;
+  int x = minDer(p,A,N);
+  int y = maxIzq(p,A,N);
+  cout << "minDer  " << x << endl;
+  cout << "maxIzq  " << y << endl;
+  cout << (x < y) ? "SI" : "NO" ;<< endl;
   return 0;
 }
     
@@ -41,17 +46,19 @@ int solve(int A[], int N){
 
 
 int main(int argc, char **argv){
-    int n;
-    int N;
+    int n, 
+        N,
+        p,
+        A[MAX];
     char answer = 'd'; // new answer variable
-    int A[MAX];
     cin >> n;
     for (int i=0; i < n ; i++){
-        cin >> N  ;
+        cin >> N ;
+        cin >> p;
         for (int j=0; j < N ; j++){
             cin >> A[j];
         }
-        solve(A,N);
+        solve(p,A,N);
     }
     //Comentarlo para el juez
     /*
