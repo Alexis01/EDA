@@ -18,18 +18,18 @@ int minDer(int p, int V[],int N){
         }
         i++;
     }
-    return min;
+    return _min;
 }
 int maxIzq(int p, int V[],int N){
     int i = p;
-    int max = V[i];
+    int _max = V[i];
     while( i >= 0 ){
-        if( V[i] >  max ){
-            min = V[i];
+        if( V[i] >  _max ){
+            _max = V[i];
         }
         i--;
     }
-    return max;
+    return _max;
 }
 
 int solve(int p,int A[], int N){
@@ -38,7 +38,11 @@ int solve(int p,int A[], int N){
   int y = maxIzq(p,A,N);
   cout << "minDer  " << x << endl;
   cout << "maxIzq  " << y << endl;
-  cout << (x < y) ? "SI" : "NO" ;<< endl;
+  if( x < y ){
+       cout << "SI" << endl;
+  }else{
+       cout << "NO" << endl;
+  }
   return 0;
 }
     
@@ -61,9 +65,9 @@ int main(int argc, char **argv){
         solve(p,A,N);
     }
     //Comentarlo para el juez
-    /*
+    
     cout << "Press any key to continue, not enter";
     cin >> answer;
-    cout << endl;*/
+    cout << endl;
     return 0;
 }

@@ -55,7 +55,7 @@ int solve(int A[], int N){
 int main(int argc, char **argv){
 	int n;
 	//int N;
-	//char answer = 'd'; // new answer variable
+	char answer = 'd'; // new answer variable
 	int A[MAX];
 	cin >> n;
 	for (int i = 0; i < n; i++){
@@ -64,7 +64,7 @@ int main(int argc, char **argv){
 	solve(A, n);
 
 	//cout << "Press any key to continue, not enter";
-	/*cin >> answer;
-	cout << endl;*/
+	cin >> answer;
+	cout << endl;
 	return 0;
 }
