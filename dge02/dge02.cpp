@@ -8,45 +8,28 @@ using namespace std;
 #define utilMax std::numeric_limits<int>::max()
 #define utilMin std::numeric_limits<int>::min()
 
-
-int minDer(int p, int V[],int N){
-    int i = p + 1;
-    int _min = V[i];
-    while( i < N ){
-        if( V[i]< _min ){
-            _min = V[i];
-        }
-        i++;
-    }
-    return _min;
-}
-int maxIzq(int p, int V[],int N){
-    int i = p;
-    int _max = V[i];
-    while( i >= 0 ){
-        if( V[i] >  _max ){
-            _max = V[i];
-        }
-        i--;
-    }
-    return _max;
-}
-
-int solve(int p,int A[], int N){
-  int n;
-  int x = minDer(p,A,N);
-  int y = maxIzq(p,A,N);
-  cout << "minDer  " << x << endl;
-  cout << "maxIzq  " << y << endl;
-  if( x < y ){
-       cout << "SI" << endl;
-  }else{
-       cout << "NO" << endl;
-  }
-  return 0;
-}
     
-
+int solve(int p,int V[], int N){
+    int pos = 0,
+        minDer = V[p+1],
+        maxIzq = V[0];
+    while( pos < N ){
+        if( pos < p ){
+            maxIzq = (V[pos] > maxIzq) ? V[pos] : maxIzq; 
+        }
+        if( pos > p ){
+            minDer = (V[pos] < minDer) ? V[pos] : minDer;
+        }
+        pos++;
+    }
+    
+    if( maxIzq < minDer ){
+        cout << "SI" << endl;
+    }else{
+        cout << "NO" << endl;
+    }
+    return 0;
+}
 
 
 int main(int argc, char **argv){
@@ -54,7 +37,7 @@ int main(int argc, char **argv){
         N,
         p,
         A[MAX];
-    char answer = 'd'; // new answer variable
+    //char answer = 'd'; // new answer variable
     cin >> n;
     for (int i=0; i < n ; i++){
         cin >> N ;
@@ -65,9 +48,8 @@ int main(int argc, char **argv){
         solve(p,A,N);
     }
     //Comentarlo para el juez
-    
-    cout << "Press any key to continue, not enter";
+    /*cout << "Press any key to continue, not enter";
     cin >> answer;
-    cout << endl;
+    cout << endl;*/
     return 0;
 }
