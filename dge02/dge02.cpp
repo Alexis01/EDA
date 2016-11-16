@@ -14,7 +14,7 @@ int solve(int p,int V[], int N){
         minDer = V[p+1],
         maxIzq = V[0];
     while( pos < N ){
-        if( pos < p ){
+        if( pos <= p ){
             maxIzq = (V[pos] > maxIzq) ? V[pos] : maxIzq; 
         }
         if( pos > p ){
