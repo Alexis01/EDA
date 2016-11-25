@@ -21,18 +21,21 @@ int solve(int V[], int N){
 int main(int argc, char **argv){
 	int N;
 	string line;
-	stringstream ssin(line);
+	stringstream iss;
 	int V[MAX];
-	int pos = 0;
 	while(cin){
 		getline(cin,line);
-		
-		solve(V,sizeof(V));
-		cout << "Press any key to continue, not enter";
-		char answer = 'd';
-		cin >> answer;
+		iss.clear();
+		iss.str(line);
+		for( N = 0; iss;  ){
+			iss >> V[N++];
+		}
+		N -= 2;
+		solve( V, N );
+		for(int i = 0; i < N; i++ ){
+			cout << V[i] << " ";
+		}
 		cout << endl;
-		
-		
 	}
+	return 0;
 }
