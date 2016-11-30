@@ -10,20 +10,23 @@ using namespace std;
 
     
 int solve(int p,int V[], int N){
-    int pos = 0,
-        minDer = V[p+1],
-        maxIzq = V[0];
+	int max = V[0],
+		pos = 1;
+	bool correct = true;
     while( pos < N ){
-        if( pos <= p ){
-            maxIzq = (V[pos] > maxIzq) ? V[pos] : maxIzq; 
-        }
-        if( pos > p ){
-            minDer = (V[pos] < minDer) ? V[pos] : minDer;
-        }
+		if (pos <= p){
+			if (V[pos] >= max){
+				max = V[pos];
+			}
+		}
+		if (pos > p){
+			if ( V[pos] <= max){
+				correct = false;
+			}
+		}
         pos++;
     }
-    
-    if( maxIzq < minDer ){
+    if( correct ){
         cout << "SI" << endl;
     }else{
         cout << "NO" << endl;
@@ -37,7 +40,7 @@ int main(int argc, char **argv){
         N,
         p,
         A[MAX];
-    //char answer = 'd'; // new answer variable
+    
     cin >> n;
     for (int i=0; i < n ; i++){
         cin >> N ;
@@ -48,8 +51,10 @@ int main(int argc, char **argv){
         solve(p,A,N);
     }
     //Comentarlo para el juez
-    /*cout << "Press any key to continue, not enter";
+	/*char answer = 'd'; // new answer variable
+    cout << "Press any key to continue, not enter";
     cin >> answer;
     cout << endl;*/
+
     return 0;
 }
