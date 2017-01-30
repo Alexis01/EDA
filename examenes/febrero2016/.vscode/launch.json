@@ -6,7 +6,7 @@
             "name": "C++ Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/eje1",
+            "program": "${workspaceRoot}/eje2",
             "args": [],
             "preLaunchTask":"g++",
             "stopAtEntry": false,

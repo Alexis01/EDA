@@ -1,0 +1,17 @@
+ESQUEMA DE UN ALGORITMO RECURSIVO
+SENCILLO :
+
+        h(x)    d(x)
+f(x) {  
+        c(x, f(ant(x)))  !d(x)
+
+{P(x)}
+    función f(x:T1) devuelve T2
+    opción
+        d(x): r:=h(x); /*Casos directos*/
+        !d(x): v:=f(ant(x)); r:=c(x,v); /*Casos recursivos*/
+    fopción
+
+    devuelve r
+    ffunción
+{Q(x,r)}

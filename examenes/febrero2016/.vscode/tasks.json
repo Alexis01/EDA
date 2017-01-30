@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "g++",
     "isShellCommand": true,
-    "args": ["eje1.cpp", "-o", "eje1"],
+    "args": ["eje2.cpp", "-o", "eje2"],
     "showOutput": "always"
 }
