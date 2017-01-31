@@ -8,26 +8,28 @@ using namespace std;
 ISBN
 
 */
+long long int digitoControl(long long int x){
+    cout << x << endl;
+    return 10-(x%10);
+}
 
-
-long long int solveRecursive(int V[], int N, int &pares, int &impares){
+long long int solveRecursive(int V[], int N){
 	int res;
-    if(N == 1){
-        if(N%2==0){
-            res = pares + V[0] * 1;
+    if( N == 1 ){
+        if(N%2==1){
+             res = V[0] * 1;
         }else{
-            res += impares + V[0] * 3;
+             res = V[0] * 3;
         }
     }else{
         if( N%2 == 0 ){
-            pares += V[N-1]*1;
-            res = solveRecursive(V, N-1 , pares, impares);
+            res = solveRecursive(V, N-1 );
         }else{
-            impares = V[N-1]*3;
-            res = solveRecursive(V, N-1 , pares, impares);
+            res = solveRecursive(V, N-1 );
         }
     }
     return res;
+    
 }
 long long int solveIterative(int V[], int N){
     int n = 0, suma = 0;
@@ -62,7 +64,7 @@ int main(int argc, char **argv){
         /*solveRecursive(A, N, sumPares, sumImpares);
         cout <<"SumPares: " << sumPares << endl;
         cout <<"sumImpares: " <<  sumImpares << endl;*/
-        cout <<"SumPares: " << solveRecursive(A, N, sumPares, sumImpares) << endl;
+        cout <<"SumPares: " << digitoControl(solveRecursive(A, N)) << endl;
 	}
 	//Comentarlo para el juez
 	char answer = 'd'; // new answer variable
