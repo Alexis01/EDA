@@ -1,10 +1,13 @@
 #include <iostream>    // cin, cout
 #include <algorithm>  // max
 #include <limits>
-
+#include <climits>
 using namespace std;
 
-#define MAX 10000
+#define  TAM     3830    // 261 Hz 
+#define MAX 10000 
+
+
 /*
 ISBN
 vueltaAtras(Tupla & sol, int k){
@@ -30,12 +33,12 @@ struct Celda{
 bool esSolucion(Celda current, Celda dest){
     return current.fila == dest.fila && dest.fila == dest.columna;
 }
-bool esValida(int* V, Celda current, Celda ant, int hmax, int *marcas, int N){
+bool esValida(int V[][TAM], Celda current, Celda ant, int hmax, bool marcas[TAM][TAM], int N){
     // esValida si no esta fuera, el desnivel no supera hmax, y no estaba amrcada
     return (current.fila >= 0 && current.fila < N) &&
             (current.columna >= 0 && current.columna < N) &&
             abs(V[current.fila][current.columna] - V[ant.fila][ant.columna]) <= hmax &&
-            !(marcas[current.fila][curren.columna]);
+            !(marcas[current.fila][current.columna]);
 }
 /*
 Tenemos 4 posibles direcciones, norte, sur este oest
@@ -86,8 +89,8 @@ Celda siguienteHijoNivel(int dir, Celda pos){
 float lab[N][N], Celda dest, float hmax, Celda solucion[], int k, int n, 
 bool marcas[N][N], Celda mejorSol[],int &mejorLong
 */
-void solve(int *V, Celda dest, int hmax,
-            Celda solucion[], int k , int n, bool *marcas,
+void solve(int V[][TAM], Celda dest, int hmax,
+            Celda solucion[], int k , int n, bool marcas[][TAM],
             Celda mejorSol[], int &minLong ){
 	//Prepara recorrido: En este caso al ser posiciones en la matriz ->  norte sur este oeste, 4 posibles destino
     int pos = 0;
@@ -107,9 +110,9 @@ void solve(int *V, Celda dest, int hmax,
                     minLong = k;
                 }
             }else{
-                int longEstimada = k + Math.abs(dest.fila-solucion[k].fila)
-                + Math.abs(dest.columna-solucion[k].columna);
-                if(longEstimada < mejorSol){
+                int longEstimada = k + abs(dest.fila-solucion[k].fila)
+                + abs(dest.columna-solucion[k].columna);
+                if(longEstimada < minLong){
                     marcas[solucion[k].fila][solucion[k].columna] = true;
                     solve(V, dest, hmax, solucion, k+1, n, marcas, mejorSol, minLong);
                     marcas[solucion[k].fila][solucion[k].columna] = false;//si no llega a ser solución lo desmarco
@@ -124,7 +127,7 @@ int main(int argc, char **argv){
         yFrom,
         xTo,
         yTo;
-    int V[3][3];
+    int V[TAM][TAM];
     V[0][0] = 0;V[0][1] = 3;V[0][2] = 4;V[1][0] = 1;V[1][1] = 2;V[1][2] = 3;V[2][0] = 1;V[2][1] = 1;
     V[2][2] = 1;
     cin >> xFrom;
@@ -134,7 +137,7 @@ int main(int argc, char **argv){
     Celda dest, from;
     dest.fila = xTo;
     dest.columna = yTo;
-    dest.from = xFrom;
+    dest.fila = xFrom;
     dest.columna = yFrom;
     for (int i = 0; i < 3; i++){
 		for (int j = 0; j < 3; j++){
@@ -147,10 +150,11 @@ int main(int argc, char **argv){
             Celda solucion[], int k , int n, bool marcas[N][N],
             Celda mejorSol[], int &minLong
     */
-    Celda solucion[n];
-    Celda mejorSol[n];
-    bool marcas[3][3];
-    solve(V, dest, 2,solucion,1,3,mejorSol, INT_MAX);
+    Celda solucion[TAM];
+    Celda mejorSol[TAM];
+    bool marcas[TAM][TAM];
+    int minLong = INT_MAX;
+    solve(V, dest, 2,solucion,1,3,marcas,mejorSol, minLong);
 	//Comentarlo para el juez
 	char answer = 'd'; // new answer variable
 	cout << "Press any key to continue, not enter";
