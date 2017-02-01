@@ -4,7 +4,7 @@
 #include <climits>
 using namespace std;
 
-#define  TAM     3830    // 261 Hz 
+#define  TAM     3    // 261 Hz 
 #define MAX 10000 
 
 
@@ -98,9 +98,11 @@ void solve(int V[][TAM], Celda dest, int hmax,
         solucion[k] = siguienteHijoNivel(pos,solucion[k-1]);
         // esValida(float V[][], Celda current, Celda ant, int hmax, int marcas[][], int N)
         if(esValida(V,solucion[k], solucion[k-1], hmax, marcas, n)){
+            cout << "esValida " << k << endl;
             //esSolucion(Celda current, Celda dest)
             if(esSolucion(solucion[k], dest)){
                 //funcion de tratar solucion
+                cout << "esSolucion  " << k << endl;
                 if( k < minLong ){
                     int i = 0;
                     while(i<n){
@@ -110,6 +112,7 @@ void solve(int V[][TAM], Celda dest, int hmax,
                     minLong = k;
                 }
             }else{
+                cout << "else esSolucion" << k << endl;
                 int longEstimada = k + abs(dest.fila-solucion[k].fila)
                 + abs(dest.columna-solucion[k].columna);
                 if(longEstimada < minLong){
@@ -121,42 +124,61 @@ void solve(int V[][TAM], Celda dest, int hmax,
         }
         pos++;
     }
+    
+}
+void print(int V[TAM][TAM]){
+    int i=0;
+    
+    while(i<TAM){
+        int j = 0;
+        while(j < TAM){
+             cout << V[i][j] << " ";
+            j++;
+        }
+        cout << endl;
+        i++;
+    }
 }
 int main(int argc, char **argv){
-	int xFrom,
-        yFrom,
-        xTo,
-        yTo;
+    
     int V[TAM][TAM];
-    V[0][0] = 0;V[0][1] = 3;V[0][2] = 4;V[1][0] = 1;V[1][1] = 2;V[1][2] = 3;V[2][0] = 1;V[2][1] = 1;
+   V[0][0] = 0;V[0][1] = 3;V[0][2] = 4;V[1][0] = 1;V[1][1] = 2;V[1][2] = 3;V[2][0] = 1;V[2][1] = 1;
     V[2][2] = 1;
-    cin >> xFrom;
-    cin >> yFrom;
-    cin >> xTo;
-    cin >> yTo;
+	int xFrom = 0,
+        yFrom = 1,
+        xTo = 0,
+        yTo = 0;
+    
+    
     Celda dest, from;
     dest.fila = xTo;
     dest.columna = yTo;
     dest.fila = xFrom;
     dest.columna = yFrom;
-    for (int i = 0; i < 3; i++){
-		for (int j = 0; j < 3; j++){
-			cout << V[i][j] << " ";
-		}
-        cout << endl;
-	}
+    
+    print(V);
     /*
     float V[][], Celda dest, int hmax,
             Celda solucion[], int k , int n, bool marcas[N][N],
             Celda mejorSol[], int &minLong
     */
+    
     Celda solucion[TAM];
     Celda mejorSol[TAM];
     bool marcas[TAM][TAM];
-    int minLong = INT_MAX;
+    int minLong = 50;
     solve(V, dest, 2,solucion,1,3,marcas,mejorSol, minLong);
+    int i = 0;
+    cout << "coste " << minLong << endl;
+    cout << "sol (0, 1), (1, 1), (1, 0), (0, 0) " << endl;
+    while(i < TAM){
+        
+        cout << "( " << mejorSol[i].fila <<" , "<< mejorSol[i].columna << ')' <<endl;
+        
+        i++;
+    }
 	//Comentarlo para el juez
-	char answer = 'd'; // new answer variable
+    char answer = 'd'; // new answer variable
 	cout << "Press any key to continue, not enter";
 	cin >> answer;
 	cout << endl;
