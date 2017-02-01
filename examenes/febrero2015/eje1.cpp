@@ -44,7 +44,7 @@ int solveprimerapensada(int V[], int N){
 }
 int solve(int V[], int N){
     int n = 0, centinela = V[N-1], sum = 0, poscent = N-1;
-    while( n <= poscent ){
+    while( n < poscent ){
         if( n == (poscent - 1) ){
             cout << V[n]<<  "*" << centinela << endl;
             sum = sum +(V[n] * centinela);
