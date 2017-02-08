@@ -1,12 +1,25 @@
 {
     "version": "0.2.0",
     "configurations": [
-        
+        {
+            "type": "extensionHost",
+            "request": "launch",
+            "name": "Extensión de inicio",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}"
+            ],
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceRoot}/out/**/*.js"
+            ],
+            "preLaunchTask": "npm"
+        },
         {
             "name": "C++ Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceRoot}/eje1",
+            "program": "${workspaceRoot}/eje3",
             "args": [],
             "preLaunchTask":"g++",
             "stopAtEntry": false,
