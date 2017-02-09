@@ -33,11 +33,47 @@ void sumarDatos(Producto sol[], int tam, int &sumpre, int &sumprot, int &sumcal)
         i++;
     }
 }
+bool isValid(Producto sol[], int k){
+    int i = 0;
+    while(i < k && sol[i] != sol[k]){
+        i++;
+    }
+    return i == k;
+}
 
+bool isSolution(Prod sol[], int k, int maxprecio, int maxprot, int mincal){
+    //sol[k] yo mismo
+    int i = 0;
+    int sumpre, sumprot, sumcal;
+    while(i < k){
+        Producto prod;
+        prod = sol[i];
+        sumpre += prod.pre;
+        sumprot += prod.prot;
+        sumcal += prod.cal;
+        i++;
+    }
+    return (sumprecio < maxprecio) && 
+                (sumprote < maxproteinas) && 
+                      (sumcal < mincal); 
+}
 /*
 solve(prods,numcasos,sol,mejorSol, MP, QP);
 */
-void solve(Producto prods[], int N, Producto sol[], Producto mejorSol[],int maxprecio, int maxproteinas, int &minCal, int nivel){
+void solve(Producto prods[], int N, Producto sol[], Producto mejorSol[],int maxprecio, int maxprot, int &mincal, int k){
+    for(int producto = 0; producto < N; producto++){
+        sol[k] = producto;
+        if(isValid(sol,k)){
+            if(isSolution(sol,k, maxprecio, maxprot, mincal)){
+                //Copiar los valores en mejor solucion TODO
+            }else{
+                
+            }
+        } 
+    }
+
+
+    /*
     int i = 0;
     while(i < N){
         sol[i] = prods[i];
@@ -46,7 +82,7 @@ void solve(Producto prods[], int N, Producto sol[], Producto mejorSol[],int maxp
             int sumpre = 0, sumprot = 0, sumcal = 0;
             sumarDatos(sol,i,sumpre,sumprot,sumcal);
             /*(int maxprecio, int maxproteinas, int mincal,
-                    int sumprecio, int sumprote, int sumcal)*/
+                    int sumprecio, int sumprote, int sumcal)
             if(esSolucion(maxprecio, maxproteinas, minCal, sumpre,sumprot, sumcal)){
                 cout << "esSolucion"<< endl;
                 mejorSol[i] = sol[i];
@@ -56,13 +92,13 @@ void solve(Producto prods[], int N, Producto sol[], Producto mejorSol[],int maxp
                     mejorSol[j] = sol[j];
                     j++;
                 }
-                minCal = sumcal;*/
+                minCal = sumcal;
             }else{
 
             }
         }
         i++;
-    }
+    }*/
 }
 
 
