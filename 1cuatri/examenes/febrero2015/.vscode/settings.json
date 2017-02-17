@@ -15,6 +15,7 @@
         "cwctype": "cpp",
         "*hcstdarg": "cpp",
         "cmath": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iostream": "cpp"
     }
 }
