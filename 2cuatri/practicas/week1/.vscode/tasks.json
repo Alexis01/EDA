@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "g++",
     "isShellCommand": true,
-    "args": ["main.cpp", "-o", "main"],
+    "args": ["SetOfInts1.cpp main.cpp", "-o", "main"],
     "showOutput": "always"
 }

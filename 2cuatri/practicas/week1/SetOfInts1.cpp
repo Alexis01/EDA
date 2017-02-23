@@ -19,7 +19,7 @@ bool SetOfInts1::isEmpty() const {
 	return (size == 0);
 }
 
-void SetOfInts1::add(int x) throw Error {
+void SetOfInts1::add(int x) throw (Error) {
 	if (isFull()) throw Error("Cannot add: The set is full");
 	else {
 		elems[size] = x;
