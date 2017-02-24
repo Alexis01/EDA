@@ -12,6 +12,31 @@ SetOfInts3::SetOfInts3() {
 }
 
 
+
+
+//practica 1 
+bool SetOfInts3::operator==(const SetOfInts3& set)const{
+	//this.atribs == set
+	/*
+	Me rec
+	*/ 
+	bool ok = true;
+
+	if ( size == set.size){
+		int i = 0;
+		while ( i< size && ok ){
+			if ( !(elems[i] == set.elems[i]) ){
+				ok = false;
+			}
+			i++;
+		}
+	}
+	return ok;
+}
+bool SetOfInts3::operator<(const SetOfInts3& set)const{
+	//this.atribs < set
+	return true;
+}
 // Public methods
 
 bool SetOfInts3::isEmpty() const{

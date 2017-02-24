@@ -25,6 +25,9 @@ class SetOfInts3 {
 		void remove(int x);
 		friend istream& operator>>(istream& sIn,SetOfInts3& set);
 		friend ostream& operator<<(ostream& sOut,SetOfInts3& set);
+		//TODO punto1
+		bool operator==(const SetOfInts3& set) const;//Método observador
+		bool operator<(const SetOfInts3& set) const;
 };
 
 #endif /* SETOFINTS3_H_ */
