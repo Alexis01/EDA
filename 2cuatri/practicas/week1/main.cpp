@@ -103,7 +103,15 @@ void eje2(){
 
 }
 
+//TODO Indica en un comentario la complejidad de los algoritmos implementados
+/*
+orden 
+	constante hasta los números que necesitemos
+	el getMin es constante 1
+	el remove es (O(log n)).
 
+	=> n   + 1 + O(log n)  ====>    n + O(log n)  ORDEN DE LA FUNCIÓN
+*/
 void solve(int V[],int numK, SetOfInts3& data){
 	int pos = 0;
 	while(pos < numK){
@@ -151,11 +159,9 @@ int main(){
 	Indica en un comentario la complejidad de los algoritmos implementados.*/
 	int numK;
 	int V[MAX];
-	cout << "Cuantos quieres?" << endl;
 	cin >> numK;
 	while( numK != 0 ){
 		SetOfInts3 *data = new SetOfInts3();
-		cout << "Inserta los datos" << endl;
 		int num, pos = 0;
 		cin >> num;
 		data->add(num);
@@ -165,8 +171,7 @@ int main(){
 			pos++;
 			cin >> num;
 		}
-		solve(V,numK, *data);
-		//Destructor clase temporal
+		solve(V,numK, *data); // Indica en un comentario la complejidad de los algoritmos implementados
 		delete data;
 		cin >> numK;
 	}
@@ -174,7 +179,7 @@ int main(){
 	char arg;
 	cout << "Pres key to exit" << endl;
 	cin >> arg;
-	cout << "Bye Intensa";
+	cout << "Bye";
 	cout << endl;
 
     return 0;

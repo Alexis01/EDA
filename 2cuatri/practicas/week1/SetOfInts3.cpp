@@ -43,8 +43,11 @@ bool SetOfInts3::operator<(const SetOfInts3& set)const{
 	return ok;
 }
 //observadora
+/*
+Orden es constante
+*/
 int SetOfInts3::getMin() const{
-	int min = INT_MAX;
+	/*int min = INT_MAX;
 	int pos = 0;
 	bool found = false;
 	while( pos < size && !found){
@@ -55,12 +58,20 @@ int SetOfInts3::getMin() const{
 		}
 		pos++;
 	}
+	return min;*/
+	int min = INT_MAX;
+	if(size > 0){
+		min = elems[0];
+	}
 	return min;
 }
 //modificadora
+/*
+Orde es constante + (O(log n)).
+*/
 void SetOfInts3::removeMin(){
 	int min = INT_MAX;
-	int pos = 0;
+	/*int pos = 0;
 	bool found = false;
 	while( pos < size && !found){
 		
@@ -70,6 +81,9 @@ void SetOfInts3::removeMin(){
 			found = true;
 		}
 		pos++;
+	}*/
+	if(size > 0 ){
+		remove(elems[0]);
 	}
 }
 
