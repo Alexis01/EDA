@@ -6,7 +6,7 @@
 class SetOfInts3 {
 	// Conjuntos de enteros representados como vectores ordenados sin repeticiones
 	private:
-		static const int MAXSIZE = 5;
+		static const int MAXSIZE = 10000;
 
 		int elems[MAXSIZE];
 		int size;
@@ -25,9 +25,16 @@ class SetOfInts3 {
 		void remove(int x);
 		friend istream& operator>>(istream& sIn,SetOfInts3& set);
 		friend ostream& operator<<(ostream& sOut,SetOfInts3& set);
-		//TODO punto1
-		bool operator==(const SetOfInts3& set) const;//Método observador
+		//eje 1
+		bool operator==(const SetOfInts3& set) const;//Mï¿½todo observador
+		//eje 2
 		bool operator<(const SetOfInts3& set) const;
+		//eje 3
+		//observadora
+		int getMin() const;
+		//modificadora
+		void removeMin();
+
 };
 
 #endif /* SETOFINTS3_H_ */

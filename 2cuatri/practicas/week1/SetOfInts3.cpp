@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits.h>
 using namespace std;
 
 #include "Error.h"
@@ -16,10 +17,7 @@ SetOfInts3::SetOfInts3() {
 
 //practica 1 
 bool SetOfInts3::operator==(const SetOfInts3& set)const{
-	//this.atribs == set
-	/*
-	Me rec
-	*/ 
+	cout << "Método redefinido ==" << endl;
 	bool ok = true;
 
 	if ( size == set.size){
@@ -34,11 +32,48 @@ bool SetOfInts3::operator==(const SetOfInts3& set)const{
 	return ok;
 }
 bool SetOfInts3::operator<(const SetOfInts3& set)const{
-	//this.atribs < set
-	return true;
+	//hay que comprobar si this es subconjunto de set
+	cout << "Método redefinido <" << endl;
+	bool ok = true;
+	int i = 0;
+	while( i < size && ok){
+		ok = set.contains(elems[i]);
+		i++;
+	}
+	return ok;
 }
-// Public methods
+//observadora
+int SetOfInts3::getMin() const{
+	int min = INT_MAX;
+	int pos = 0;
+	bool found = false;
+	while( pos < size && !found){
+		
+		if( elems[pos] < min   ){
+			min = elems[pos];
+			found = true;
+		}
+		pos++;
+	}
+	return min;
+}
+//modificadora
+void SetOfInts3::removeMin(){
+	int min = INT_MAX;
+	int pos = 0;
+	bool found = false;
+	while( pos < size && !found){
+		
+		if( elems[pos] < min   ){
+			min = elems[pos];
+			remove(elems[pos]);
+			found = true;
+		}
+		pos++;
+	}
+}
 
+// Public methods
 bool SetOfInts3::isEmpty() const{
 	return (size == 0);
 }
