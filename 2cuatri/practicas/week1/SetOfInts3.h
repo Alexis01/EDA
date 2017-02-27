@@ -2,7 +2,9 @@
 #ifndef SETOFINTS3_H_
 #define SETOFINTS3_H_
 
-
+#include "Error.h"
+#include<iostream>
+using namespace std;
 class SetOfInts3 {
 	// Conjuntos de enteros representados como vectores ordenados sin repeticiones
 	private:
