@@ -2,5 +2,5 @@
 
 ### Getting Started
 
-    * g++ SetOfInts1.cpp SetOfInts2.cpp SetOfInts3.cpp main.cpp -o main
+    * g++ SetOfInts3.cpp Main.cpp -o main
     * ./main

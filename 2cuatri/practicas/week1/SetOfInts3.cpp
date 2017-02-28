@@ -70,18 +70,6 @@ int SetOfInts3::getMin() const{
 Orde es constante + (O(log n)).
 */
 void SetOfInts3::removeMin(){
-	int min = INT_MAX;
-	/*int pos = 0;
-	bool found = false;
-	while( pos < size && !found){
-		
-		if( elems[pos] < min   ){
-			min = elems[pos];
-			remove(elems[pos]);
-			found = true;
-		}
-		pos++;
-	}*/
 	if(size > 0 ){
 		remove(elems[0]);
 	}
@@ -161,7 +149,7 @@ int SetOfInts3::binSearchAux(int x, int a, int b) const {
 	//      todos los elementos a la izquierda de 'a' son <= x
 	//      todos los elementos a la derecha de 'b' son > x
 
-	int p, m;
+	int p=-1, m=-1;
 
 	if (a == b + 1)
 		p = a - 1;
