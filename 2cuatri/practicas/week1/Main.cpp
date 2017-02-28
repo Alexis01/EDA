@@ -76,7 +76,11 @@ orden
 void solve(int V[],int numK, SetOfInts3& data){
 	int pos = 0;
 	while(pos < numK){
-		cout << data.getMin() << " ";
+		if(numK == 1 || pos == numK - 1){
+			cout << data.getMin();
+		}else{
+			cout << data.getMin() << " ";
+		}
 		data.removeMin();
 		pos++;
 	}
@@ -137,11 +141,11 @@ int main(){
 		cin >> numK;
 	}
 	//Pare el programa
-	char arg;
+	/*char arg;
 	cout << "Pres key to exit" << endl;
 	cin >> arg;
 	cout << "Bye";
-	cout << endl;
+	cout << endl;*/
 
     return 0;
 }
