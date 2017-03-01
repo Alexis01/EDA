@@ -36,6 +36,11 @@ class SetOfInts3 {
 		int getMin() const;
 		//modificadora
 		void removeMin();
+		//eje 3
+		//observadora
+		int getMax() const;
+		//modificadora
+		void removeMax() throw (Error);
 
 };
 

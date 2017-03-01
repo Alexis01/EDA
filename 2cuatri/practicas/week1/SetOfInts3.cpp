@@ -12,9 +12,6 @@ SetOfInts3::SetOfInts3() {
 	size = 0;
 }
 
-
-
-
 //practica 1 
 bool SetOfInts3::operator==(const SetOfInts3& set)const{
 	cout << "Método redefinido ==" << endl;
@@ -46,19 +43,24 @@ bool SetOfInts3::operator<(const SetOfInts3& set)const{
 /*
 Orden es constante
 */
-int SetOfInts3::getMin() const{
-	/*int min = INT_MAX;
-	int pos = 0;
-	bool found = false;
-	while( pos < size && !found){
-		
-		if( elems[pos] < min   ){
-			min = elems[pos];
-			found = true;
-		}
-		pos++;
+int SetOfInts3::getMax() const{
+	return elems[size-1];
+}
+//modificadora
+/*
+Orde es constante + (O(log n)).
+*/
+void SetOfInts3::removeMax() throw (Error){
+	if(size > 0 ){
+		size--;
 	}
-	return min;*/
+}
+
+//observadora
+/*
+Orden es constante
+*/
+int SetOfInts3::getMin() const{
 	int min = INT_MAX;
 	if(size > 0){
 		min = elems[0];
@@ -128,11 +130,11 @@ istream& operator>>(istream& sIn, SetOfInts3& set) {
 }
 
 ostream& operator<<(ostream& sOut, SetOfInts3& set) {
-	sOut << "{";
+	//sOut << "{";
 	for (int i = 0; i < set.size-1; i++)
-		sOut << set.elems[i] << ",";
+		sOut << set.elems[i] << " ";
 	if (set.size > 0) sOut << set.elems[set.size-1];
-	sOut << "}";
+	//sOut << "}";
 	return sOut;
 }
 

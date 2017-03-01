@@ -67,24 +67,31 @@ void eje2(){
 //TODO Indica en un comentario la complejidad de los algoritmos implementados
 /*
 orden 
-	constante hasta los números que necesitemos
-	el getMin es constante 1
-	el remove es (O(log n)).
+	k siempre es constante
+	k + ---> contK < numK
+			 O(k)
+		--->
+			O(n) + O(log n)
 
-	=> n   + 1 + O(log n)  ====>    n + O(log n)  ORDEN DE LA FUNCIÓN
+	Orden = O(k + max(O(k), O(n)+O(log n))))
 */
-void solve(int V[],int numK, SetOfInts3& data){
-	int pos = 0;
-	while(pos < numK){
-		if(numK == 1 || pos == numK - 1){
-			cout << data.getMin();
+void solve(int V[],int numK, int N){
+	int pos = 0, contK = 0;
+	SetOfInts3 *set = new SetOfInts3();
+	while(pos < N){
+		if(contK < numK){
+			set->add(V[pos]);
+			contK++;
 		}else{
-			cout << data.getMin() << " ";
+			if( V[pos] < set->getMax() && !(set->contains(V[pos]) )){
+				set->removeMax();
+				set->add(V[pos]);
+			}
 		}
-		data.removeMin();
 		pos++;
 	}
-	cout << endl;
+	cout << *set << endl;
+	delete set;
 }
 int main(){
 	
@@ -126,18 +133,14 @@ int main(){
 	int V[MAX];
 	cin >> numK;
 	while( numK != 0 ){
-		SetOfInts3 *data = new SetOfInts3();
 		int num, pos = 0;
 		cin >> num;
-		data->add(num);
 		while( num != -1 ){
 			V[pos] = num;
-			data->add(num);
 			pos++;
 			cin >> num;
 		}
-		solve(V,numK, *data); // Indica en un comentario la complejidad de los algoritmos implementados
-		delete data;
+		solve(V,numK,pos); // Indica en un comentario la complejidad de los algoritmos implementados
 		cin >> numK;
 	}
 	//Pare el programa
