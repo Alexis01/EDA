@@ -79,7 +79,7 @@ void solve(int V[],int numK, int N){
 	int pos = 0, contK = 0;
 	SetOfInts3 *set = new SetOfInts3();
 	while(pos < N){
-		if(contK < numK){
+		if(contK < numK && !(set->contains(V[pos]) )){
 			set->add(V[pos]);
 			contK++;
 		}else{
