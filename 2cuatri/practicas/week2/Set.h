@@ -17,6 +17,9 @@ private:
 	T* elems;
 	int size;
 	int capacity;
+	//refactor attribs
+	int pos_init;//posición de donde comienza el array
+	int pos_fin;//posición de donde termina
 
 	bool isFull() const;
 	void binSearch(const T& x, bool& found, int& pos) const;
@@ -50,6 +53,9 @@ Set<T>::Set(int initCapacity) {
 	size = 0;
 	capacity = initCapacity;
 	elems = new T[capacity];
+	//refactor
+	pos_init = 0;
+	pos_fin = 0;
 }
 
 template<class T>
@@ -57,8 +63,11 @@ Set<T>::Set(const Set<T>& set) {
 	size = set.size;
 	capacity = set.capacity;
 	elems = new T[capacity];
-	for (int i = 0; i < size; i++)
+	for (int i = 0; i < size; i++){
 		elems[i] = set.elems[i];
+	}
+	pos_init = 0;//Siempre será cero cuando venga de un conjunto
+	pos_fin =  set.capacity - 1; //metemos tantos como la capacidad entrante
 }
 
 template<class T>
@@ -73,7 +82,12 @@ template<class T>
 bool Set<T>::isEmpty() const {
 	return (size == 0);
 }
-
+//TODO:
+/*
+La idea es evitarse el shiftLeftFrom or shiftRightFrom
+Como? pues buscamos donde va el elemento
+una vez tengamos la pos hacemos el shift hacia donde más cerca convenga
+*/
 template<class T>
 void Set<T>::add(const T& x) {
 	bool found;
@@ -154,7 +168,7 @@ template<class T>
 bool Set<T>::isFull() const {
 	return size == capacity;
 }
-
+//TODO lo de la búsqueda preguntar al profe
 template<class T>
 int Set<T>::binSearchAux(const T& x, int a, int b) const {
 	// Pre: elems está ordenado entre 0 .. size-1
@@ -215,28 +229,33 @@ void Set<T>::reallocate() {
 	elems = newElems;
 }
 
+//O(1)
 template<class T>
 T Set<T>::getMin() const {
-
-	return elems[0];
+	//return elems[0];
+	//refactor
+	return elems[pos_init];
 }
-
+//O(1)
 template<class T>
 void Set<T>::removeMin() {
-	if (size > 0) {
-		remove(elems[0]);
+	if (pos_init > 0) {
+		//remove(elems[0]);
+		//refactor
+		pos_init += 1;
 	}
 }
-
+//O(1)
 template<class T>
 void Set<T>::removeMax() {
-	if (size > 0) {
-		size--;
+	if ( pos_fin > 0) {
+		pos_fin -= 1;
 	}
 }
-
+//O(1)
 template<class T>
 T Set<T>::getMax()const {
-	return elems[size - 1];
+	//return elems[size - 1];
+	return elems[pos_fin];
 }
 #endif /* Set_H_ */
