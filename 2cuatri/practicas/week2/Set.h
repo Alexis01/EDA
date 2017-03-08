@@ -93,11 +93,13 @@ void Set<T>::add(const T& x) {
 	bool found;
 	int pos;
 
-	binSearch(x, found, pos);
+	binSearch(x, found, pos, pos_init, pos_fin);
 	if (!found) {
 		shiftRightFrom(pos + 1);
 		elems[pos + 1] = x;
 		size++;
+		//refactor
+		pos_fin += 1;
 		if (isFull()) reallocate();
 	}
 }
@@ -168,7 +170,7 @@ template<class T>
 bool Set<T>::isFull() const {
 	return size == capacity;
 }
-//TODO lo de la búsqueda preguntar al profe
+
 template<class T>
 int Set<T>::binSearchAux(const T& x, int a, int b) const {
 	// Pre: elems está ordenado entre 0 .. size-1
@@ -194,11 +196,12 @@ int Set<T>::binSearchAux(const T& x, int a, int b) const {
 }
 
 template<class T>
-void Set<T>::binSearch(const T& x, bool& found, int& pos) const {
+void Set<T>::binSearch(const T& x, bool& found, int& pos,
+						int pos_init, int pos_fin) const {
 	// Pre: los size primeros elementos de elems están ordenados
 	//      size >= 0
 
-	pos = binSearchAux(x, 0, size - 1);
+	pos = binSearchAux(x, pos_init, pos_fin);
 	found = (pos >= 0) && (pos < size) && (elems[pos] == x);
 
 	// Post : devuelve el mayor índice i (0 <= i <= size-1) que cumple
