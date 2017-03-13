@@ -7,7 +7,7 @@
 
 using namespace std;
 
-template<class T>
+
 class Hours{
     private:
         int horas;
@@ -15,11 +15,12 @@ class Hours{
         int segundos;
     public:
         Hours(int hours, int minutes, int seconds);
-        Hours(const Hours<T>& hour);
+        Hours(const Hours& hour);
+        void write(ostream& sOut);
+	    void read(istream& sIn);
 };
 //Constructors
-template<class T>
-Hours<T>::Hours( int hours, int minutes, int seconds){
+Hours::Hours( int hours, int minutes, int seconds){
     if( hours >= 0 && hours <= 23){
         if( minutes >= 0 && minutes <= 59){
             if( seconds>= 0 && seconds <= 59 ){
@@ -36,18 +37,27 @@ Hours<T>::Hours( int hours, int minutes, int seconds){
         throw EgenericMessage("Hours must be valid");
     }
 }
-template<class T>
-Hours<T>::Hours( const Hours<T>& hours ){
+
+Hours::Hours( const Hours& hours ){
 
 }
-template<class T>
-istream& operator >> (istream& hoursIn, Hours<T>& hour) {
+
+void Hours::write(ostream& sOut) {
+	sOut << horas << ":" << minutos << ":" << segundos;
+}
+
+
+void Hours::read(istream& sIn) {
+	int n;
+	sIn >> n;
+}
+istream& operator >> (istream& hoursIn, Hours& hour) {
 	hour.read(hoursIn);
 	return hoursIn;
 }
 
-template<class T>
-ostream& operator<<(ostream& hourOut, Hours<T>& hour) {
+
+ostream& operator<<(ostream& hourOut, Hours& hour) {
 	hour.write(hourOut);
 	return hourOut;
 }
