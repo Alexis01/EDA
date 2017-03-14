@@ -18,6 +18,8 @@ class Hours{
         Hours(const Hours& hour);
         void write(ostream& sOut);
 	    void read(istream& sIn);
+        bool operator==(const Hours& hour) const;
+		bool operator<(const Hours& hour) const;
 };
 //Constructors
 Hours::Hours( int hours, int minutes, int seconds){
@@ -60,5 +62,27 @@ istream& operator >> (istream& hoursIn, Hours& hour) {
 ostream& operator<<(ostream& hourOut, Hours& hour) {
 	hour.write(hourOut);
 	return hourOut;
+}
+//practica 1 
+bool Hours::operator==(const Hours& hour)const{
+	
+	return horas == hour.horas && minutos == hour.minutos && segundos == hour.segundos;
+}
+bool Hours::operator<(const Hours& hour)const{
+    bool ok = false;
+	if( horas < hour.horas ){
+        ok = true;
+    }else{
+        if( horas == hour.horas ){
+            if( minutos < hour.minutos ){
+                ok = true;
+            }else{
+                if( segundos < hour.segundos ){
+                    ok = true;
+                }
+            }
+        }
+    }
+    return ok;
 }
 #endif /* Hours_H_ */

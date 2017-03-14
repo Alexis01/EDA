@@ -6,6 +6,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <stack>
+#include <list>
 #include "Hours.h"
 
 template<typename Out>
@@ -22,52 +23,90 @@ std::vector<std::string> split(const std::string &s, char delim) {
     split(s, delim, std::back_inserter(elems));
     return elems;
 }
-
+void printSol(vector<string> sol){
+    int i = 0;
+    while( i < sol.size() ){
+        cout << sol[i] << endl;
+        i++;
+    }
+    cout << "---" << endl;
+}
 void getDataFromLine( string line, int &horas, int &minutos, int &segundos){
     vector<string> hour = split(line, ':');
     horas = atoi(hour[0].c_str());
     minutos = atoi(hour[1].c_str());
     segundos = atoi(hour[2].c_str());
 }
+void solve( list<Hours*> trenes, Hours *buscamos, vector<string> &sol ){
+    int i = 0;
+    bool found = false;
+    list<Hours*>::iterator it = trenes.begin();
+    while( it != trenes.end() && !found){
+        ostringstream stream;
+        Hours *_tmp = (*it);
+        if( *buscamos < *_tmp || *buscamos == *_tmp ){
+            stream << *(_tmp);
+            sol.push_back( stream.str() );
+            found = true;
+        }
+        delete _tmp;
+        it++;
+    }
+}
+
+
+
 int main(){
-    int numTrenes, numHoras;
-    string linea;
-    stack<Hours*> stackTrains;
-    char c;
+    int numTrenes, numHoras; 
     cin >> numTrenes;
     cin >> numHoras;
-    /*cin.get(c);
-    getline(cin,linea);*/
     while( numTrenes != 0 && numHoras!=0 ){
+        vector<string> sol;
+        list<Hours*> listTrains;
+        string linea;
         int j = 0;
-        while( j != numTrenes ){
+        while( j < numTrenes ){
             int horas, minutos, segundos;
             cin >> linea;
             getDataFromLine(linea, horas, minutos, segundos);
             Hours *hora = new Hours(horas, minutos, segundos);
-            stackTrains.push(hora);
+            listTrains.push_back(hora);
             j++;
         }
-
-        /*
-        int horas, minutos, segundos;
-        vector<string> trains = split(linea, ' ');
-        vector<string>::iterator it;
-        for(it=trains.begin() ; it < trains.end(); it++) {
-            string hour = *it;
-            getDataFromLine(hour, horas, minutos, segundos);
-        }*/
-        
+        j = 0;
+        while(j < numHoras){
+            
+            int horas, minutos, segundos;
+            cin >> linea;
+            getDataFromLine(linea, horas, minutos, segundos);
+            try{
+                Hours *hora;
+                hora = new Hours(horas, minutos, segundos);
+                cout << "solve " << endl;
+                solve(listTrains, hora, sol);
+                cout << "after solve " << endl;
+                delete hora;
+            }catch (ExcepcionTAD& e){
+                cout << "ERROR: " << e.msg() << endl;
+                sol.push_back( e.msg() );
+            }
+            j++;
+        }
+       
+        printSol(sol);
         cin >> numTrenes;
         cin >> numHoras;
-        /*cin.get(c);
-        getline(cin,linea);*/
-    }
-    while( !stackTrains.empty() ){
-       Hours *_tmp = stackTrains.top();
-       cout << *(_tmp) << endl;
-       delete _tmp;
-       stackTrains.pop();
     }
     return 0;
 }
+
+/*
+int horas, minutos, segundos;
+vector<string> trains = split(linea, ' ');
+vector<string>::iterator it;
+for(it=trains.begin() ; it < trains.end(); it++) {
+    string hour = *it;
+    getDataFromLine(hour, horas, minutos, segundos);
+}*/
+/*cin.get(c);
+getline(cin,linea);*/
