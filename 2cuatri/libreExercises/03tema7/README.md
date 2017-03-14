@@ -18,3 +18,10 @@
     ERROR
     09:30:00
     ---
+
+
+
+    ///
+
+    *** Error in `./main': double free or corruption (fasttop): 0x0000000001632120 ***
+    Aborted (core dumped)
