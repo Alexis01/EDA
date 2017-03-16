@@ -49,11 +49,22 @@ void solve( list<Hours*> trenes, Hours *buscamos, vector<string> &sol ){
             sol.push_back( stream.str() );
             found = true;
         }
+        //delete _tmp;
+        it++;
+    }
+    if(!found){
+        sol.push_back( "NO" );
+    }
+}
+void cleanTrenes( list<Hours*> trenes ){
+    list<Hours*>::iterator it = trenes.begin();
+    while( it != trenes.end() ){
+        ostringstream stream;
+        Hours *_tmp = (*it);
         delete _tmp;
         it++;
     }
 }
-
 
 
 int main(){
@@ -82,17 +93,15 @@ int main(){
             try{
                 Hours *hora;
                 hora = new Hours(horas, minutos, segundos);
-                cout << "solve " << endl;
                 solve(listTrains, hora, sol);
-                cout << "after solve " << endl;
                 delete hora;
             }catch (ExcepcionTAD& e){
-                cout << "ERROR: " << e.msg() << endl;
-                sol.push_back( e.msg() );
+                //cout << "ERROR: " << e.msg() << endl;
+                sol.push_back( "ERROR" );
             }
             j++;
         }
-       
+        cleanTrenes(listTrains);
         printSol(sol);
         cin >> numTrenes;
         cin >> numHoras;
