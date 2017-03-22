@@ -38,7 +38,6 @@ void getDataFromLine( string line, int &horas, int &minutos, int &segundos){
     segundos = atoi(hour[2].c_str());
 }
 void solve( list<Hours*> trenes, Hours *buscamos, vector<string> &sol ){
-    int i = 0;
     bool found = false;
     list<Hours*>::iterator it = trenes.begin();
     while( it != trenes.end() && !found){
@@ -108,14 +107,3 @@ int main(){
     }
     return 0;
 }
-
-/*
-int horas, minutos, segundos;
-vector<string> trains = split(linea, ' ');
-vector<string>::iterator it;
-for(it=trains.begin() ; it < trains.end(); it++) {
-    string hour = *it;
-    getDataFromLine(hour, horas, minutos, segundos);
-}*/
-/*cin.get(c);
-getline(cin,linea);*/

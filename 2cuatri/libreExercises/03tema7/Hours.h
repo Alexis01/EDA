@@ -4,7 +4,7 @@
 #include<iostream>
 #include "Error.h"
 #include "Exceptions.h"
-
+#include<iomanip>
 using namespace std;
 
 
@@ -45,9 +45,7 @@ Hours::Hours( const Hours& hours ){
 }
 
 void Hours::write(ostream& sOut) {
-    /*std::stringstream str_hour;
-    str_hour << setfill('0') << setw(2) << int_hour;*/
-	sOut << _horas << ":" << _minutos << ":" << _segundos;
+	sOut << setfill('0') << setw (2) << _horas << ":"<< setfill('0') << setw (2) << _minutos << ":"<< setfill('0') << setw (2) << _segundos;
 }
 
 

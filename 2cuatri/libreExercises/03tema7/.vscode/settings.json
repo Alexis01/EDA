@@ -16,6 +16,7 @@
         "typeinfo": "cpp",
         "utility": "cpp",
         "ostream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "iomanip": "cpp"
     }
 }
