@@ -33,7 +33,7 @@ void main(){
 		}
 		cin >> elem;
 		mostrarLista(l);
-		//l->removeAll(elem);
+		l->removeAll(elem);
 		mostrarLista(l);
 		delete l;
 	}

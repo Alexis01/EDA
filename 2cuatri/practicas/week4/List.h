@@ -66,6 +66,35 @@ public:
 		libera();
 	}
 
+	void removeAll(T &elem){
+
+		Nodo *aux = _prim;
+		Nodo *aux2;
+		while( aux != NULL ){
+			if ( aux->elem == elem ){
+				//elimino
+				//PRIMERO
+				if (aux->ant == NULL){
+					pop_front();
+				}else{
+					//ULTIMO
+					if (aux->sig == NULL){
+						pop_back();
+					}else{
+						Nodo *ith = aux;
+						ith->ant->sig = ith->sig;
+						ith->sig->ant = ith->ant;
+						delete ith;
+					}
+				}
+				_numElems--;
+			}
+			aux = aux->_sig;
+		}
+			
+	}
+
+
 	/**
 	 A�ade un nuevo elemento en la cabeza de la lista.
 	 Operaci�n generadora.
