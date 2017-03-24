@@ -71,25 +71,25 @@ public:
 		Nodo *aux = _prim;
 		Nodo *aux2;
 		while( aux != NULL ){
-			if ( aux->elem == elem ){
+			aux2 = aux->_sig;
+			if ( aux->_elem == elem ){
 				//elimino
 				//PRIMERO
-				if (aux->ant == NULL){
+				if (aux->_ant == NULL){
 					pop_front();
 				}else{
 					//ULTIMO
-					if (aux->sig == NULL){
+					if (aux->_sig == NULL){
 						pop_back();
 					}else{
-						Nodo *ith = aux;
-						ith->ant->sig = ith->sig;
-						ith->sig->ant = ith->ant;
-						delete ith;
+						aux->_ant->_sig = aux->_sig;
+						aux->_sig->_ant = aux->_ant;
+						delete aux;
 					}
 				}
 				_numElems--;
 			}
-			aux = aux->_sig;
+			aux = aux2;
 		}
 			
 	}

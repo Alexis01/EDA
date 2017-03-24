@@ -21,7 +21,7 @@ void mostrarLista(List<int>* l){
 
 
 
-void main(){
+int main(){
 	int n, numCasos, elem;
 	cin >> numCasos;
 	for (int i = 0; i < numCasos; i++){
@@ -37,4 +37,5 @@ void main(){
 		mostrarLista(l);
 		delete l;
 	}
+	return 0;
 }
