@@ -18,23 +18,23 @@ Arbin<T> leerArbol(const T& repVacio){
 }
 
 void planificarRescate(Arbin<int> rutas, int& grupos,int& maximo ){
-	int maxI, maxD, gruposI, gruposD;
-	cout << "Soy" << rutas.raiz() << " ";
-	if ( rutas.raiz() == 0 ){
+	int maxI=0, maxD=0, gruposI=0, gruposD=0;
+
+	if ( rutas.esVacio()){
 		grupos = 0;
 		maximo = 0;
+		return;
 	}else{
 		planificarRescate(rutas.hijoIz(), gruposI, maxI);
 		planificarRescate(rutas.hijoDr(), gruposD, maxD);
 		
 		if (gruposI == 0 && gruposD == 0 && rutas.raiz() != 0 ){
-			grupos = 1;
+			grupos += 1;
 		}else{
 			grupos = gruposD + gruposI;
 		}
 		maximo = rutas.raiz() + max(maxI, maxD);
-		cout << grupos << " ";
-		cout << maximo << endl;
+		
 	}
 
 }

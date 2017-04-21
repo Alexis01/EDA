@@ -176,7 +176,7 @@ public:
 			aux = aux->_sig;
 			if (aux != NULL) sOut << ",";
 		}
-		sOut << "}" << endl;
+		sOut << "}\n";
 	}
 
 protected:
