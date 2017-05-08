@@ -16,45 +16,11 @@ Arbin<T> leerArbol(const T& repVacio){
 		return Arbin<T>(hi,elem,hd);
 	}
 }
-
-void planificarRescate(Arbin<int> rutas, int& grupos,int& maximo ){
-	int maxI=0, maxD=0, gruposI=0, gruposD=0;
-
-	if ( rutas.esVacio()){
-		grupos = 0;
-		maximo = 0;
-		return;
-	}else{
-		planificarRescate(rutas.hijoIz(), gruposI, maxI);
-		planificarRescate(rutas.hijoDr(), gruposD, maxD);
-		
-		if (gruposI == 0 && gruposD == 0 && rutas.raiz() != 0 ){
-			grupos += 1;
-		}else{
-			grupos = gruposD + gruposI;
-		}
-		maximo = rutas.raiz() + max(maxI, maxD);
-		
-	}
-
-}
-
-void resuelveCaso(){
-	Arbin<int> rutas;
-	int grupos = 0, maximo = 0;
-	rutas = leerArbol(-1); // -1 es la repr. de arbol vacio
-	planificarRescate(rutas, grupos, maximo);
-	cout << grupos << " ";
-	cout << maximo << endl;
-}
-
+/*
 Arbin<int> reconstruir( List<int> pO, List<int> iO ){
 	//CASO BASE
-	
-	
-	
 	if ( pO.empty() && iO.empty()){
-		return;
+		return new Arbin();
 	}else{
 		List<int> inDer;
 		List<int> postDer;
@@ -85,44 +51,61 @@ Arbin<int> reconstruir( List<int> pO, List<int> iO ){
 		}
 
 		//Inorden izquierdo
+		int currentInIz = 0;
+		while( !iO.empty() ){
+			currentInIz = pO.back();
+			pO.pop_back();
+			inIzq.push_front( currentInIz );
 
+		}
 		//Postorden izquierdo
+		int currentPostIzq = 0;
+		while( !pO.empty() ){
+			currentPostIzq = pO.back();
+			pO.pop_back();
+			postIzq.push_front( currentPostIzq );
 
+		}
 		//una vez los tenemos llamamos a
-			//arbin iz = recon( inZ, postIzq)
-			//arbin dr = recon( inD, postDr )
+		Arbin<int> iz = reconstruir( inIzq,  postIzq);
+		Arbin<int> dr = reconstruir( inDer,  postDer);
+		return new Arbin( iz, raiz, dr ); 
 	}
-	//CASO RECURSIVO
-		//LO DE LA IZ 
-		//LO DE LA DR
-	
-	return NULL;
 }
-
+*/
 
 int main(){
-	List<int> postOrden;
-	List<int> inOrden;
-	int postVal, auxPos = 0;
-	int inVal, auxIn = 0;
-	cin >> postVal;
-	while (auxPos != -1 && auxIn != -1){
-		while (postVal != -1){
-			postOrden.push_back(postVal);
-			cin >> postVal;
+	int n;
+	List<int>* preordenlist = new List<int>();
+	List<int>* inordenlist = new List<int>();
+	char c;
+	c = cin.peek();
+	bool ok =true;
+	while( ok ){
+		while ( c != '\n' ){
+			cin >> n;
+			if( n != -1 ){
+				preordenlist->push_back(n);		
+				cout << "data " << preordenlist->front() << endl;
+				preordenlist->pop_back();
+			}
+			c = cin.peek();
 		}
-		cin >> inVal;
-		while (inVal != -1){
-			inOrden.push_back(inVal);
-			cin >> inVal;
+		char x;
+		x = cin.peek();
+		while ( c != '\n' ){
+			cin >> n;
+			if( n == -1 ){
+				inordenlist->push_back(n);		
+				cout << "data " << inordenlist->front() << endl;
+				inordenlist->pop_back();
+			}
+			x = cin.peek();
 		}
-		//llamar a reconstruir
-		Arbin<int> arbol = reconstruir( postOrden, inOrden );
-		// niveles y te devuelve una lista e imprimir
-		cin >> auxPos;
-		cin >> auxIn;
 	}
-		
-		
-
+	
+	
+	//resolver y fuera
+	delete preordenlist;
+	delete inordenlist;
 }
