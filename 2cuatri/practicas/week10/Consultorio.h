@@ -23,7 +23,7 @@ class Consultorio{
 		Consultorio();
 		void nuevoMedico( Medico medico );
 		void pideConsulta( Paciente paciente, Medico medico, Fecha fecha);
-		void siguientePaciente(Medico medico);
+		Paciente siguientePaciente(Medico medico);
 		void atiendeConsulta(Medico medico);
 		list<Paciente> listaPacientes( Medico medico, Fecha dia );
 		
@@ -55,13 +55,74 @@ void Consultorio::pideConsulta( Paciente paciente, Medico medico, Fecha fecha ){
 		throw EgenericMessage("Medico no existente");
 	}
 }
-void Consultorio::siguientePaciente( Medico medico ){
-	cout << "siguientePaciente";
-	cout << medico;
+Paciente Consultorio::siguientePaciente( Medico medico ){
+	
+	Fecha fechaComp;
+	TreeMap<Fecha, Paciente> arbolFechaPaciente;
+	if (dicMedPac.contains(medico)) {
+
+		
+		arbolFechaPaciente = dicMedPac.at(medico);
+
+		if (!arbolFechaPaciente.empty()) {
+
+			TreeMap<Fecha, Paciente>::Iterator it = arbolFechaPaciente.begin();
+
+			fechaComp = it.key();
+			it.next();
+
+			while (it != arbolFechaPaciente.end()) {
+				it.key() < fechaComp;
+
+				if (it.key() < fechaComp) {
+					fechaComp = it.key();
+				}
+
+				it.next();
+			}
+		}
+		else {
+			throw EgenericMessage("No hay pacientes");
+		}
+
+	}
+	else {
+		throw EgenericMessage("Medico no existente");
+	}
+	return arbolFechaPaciente.at(fechaComp);
 }
 void Consultorio::atiendeConsulta( Medico medico ){
-	cout << "atiendeConsulta";
-	cout << medico;
+
+	TreeMap<Fecha, Paciente> arbolFechaPaciente;
+	if (dicMedPac.contains(medico)) {
+
+		arbolFechaPaciente = dicMedPac.at(medico);
+		if (!arbolFechaPaciente.empty()) {
+
+			TreeMap<Fecha, Paciente>::Iterator it = arbolFechaPaciente.begin();
+
+			Fecha fechaComp = it.key();
+			it.next();
+
+			while (it != arbolFechaPaciente.end()) {
+				it.key() < fechaComp;
+
+				if (it.key() < fechaComp) {
+					fechaComp = it.key();
+				}
+
+				it.next();
+			}
+
+			arbolFechaPaciente.erase(fechaComp);
+
+		}else {
+			throw EgenericMessage("No hay pacientes");
+		}
+
+	}else {
+		throw EgenericMessage("Medico no existente");
+	}
 }
 list<Paciente> Consultorio::listaPacientes( Medico medico, Fecha dia ){
 	
@@ -78,10 +139,16 @@ list<Paciente> Consultorio::listaPacientes( Medico medico, Fecha dia ){
 			while( it != arbolFechaPaciente.end() ) {
 				Fecha fkey = it.key();
 				if( fkey.getDay() == dia.getDay() ){
-					string hora = fkey.getHour();
-					string minuto = fkey.getMinute();
+					
+					string hora = std::to_string(fkey.getHour());
+					string minuto = std::to_string(fkey.getMinute());
+
+					if(minuto == "0") minuto = "00";
+					if(hora == "0") hora = "00";
+
 					Paciente result = it.value() + " " + hora + ":" + minuto;
 					pacientes.push_back( result ); 
+
 				}
 				it.next();
 			}

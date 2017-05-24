@@ -1,3 +1,5 @@
+g++ -std=c++11 main.cpp -o main
+
 12
 nuevoMedico Hernandez
 nuevoMedico Alvarez
