@@ -1,0 +1,10 @@
+alexis:week10$ g++ -std=c++11 main.cpp -o main
+main.cpp: In function ‘bool resuelve()’:
+main.cpp:49:31: error: ‘class std::basic_string<char>’ has no member named ‘second’
+                     cout << p.second << ' ';
+                               ^
+main.cpp:50:58: error: ‘class std::basic_string<char>’ has no member named ‘first’
+                     cout << setfill('0') << setw(2) << p.first.hora() << ':';
+                                                          ^
+main.cpp:51:58: error: ‘class std::basic_string<char>’ has no member named ‘first’
+                     cout << setfill('0') << setw(2) << p.first.minuto() << '\n';

@@ -42,7 +42,7 @@ bool resuelve() {
                 cin >> med;
                 con.atiendeConsulta(med);
             }else if (inst == "listaPacientes") {
-				/*cin >> med >> d;
+				cin >> med >> d;
                 auto vec = con.listaPacientes(med, Fecha(d,0,0));
                 cout << "Doctor " << med << " dia " << d << '\n';
                 for (auto p : vec) {
@@ -50,7 +50,7 @@ bool resuelve() {
                     cout << setfill('0') << setw(2) << p.first.hora() << ':';
                     cout << setfill('0') << setw(2) << p.first.minuto() << '\n';
                 }
-                cout << "---\n";*/
+                cout << "---\n";
 			}
         } catch (invalid_argument e) { 
             cout << e.what() << '\n' << "---\n"; 
