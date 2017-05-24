@@ -8,66 +8,58 @@
 using namespace std;
 
 
-class Hours{
+class Hours {
     private:
         int _horas;
         int _minutos;
         int _segundos;
     public:
-        Hours(int hours, int minutes, int seconds);
-        Hours(const Hours& hour);
+        Hours();
+        void setHora( int hours, int minutes, int seconds );
         void write(ostream& sOut);
-	    void read(istream& sIn);
         bool operator==(const Hours& hour) const;
 		bool operator<(const Hours& hour) const;
+        friend istream &operator>>(istream &sIn, Hours &hora);
+        friend ostream &operator<<(ostream &sOut, Hours &hora);
 };
 //Constructors
-Hours::Hours( int hours, int minutes, int seconds){
-    if( hours >= 0 && hours <= 23){
-        if( minutes >= 0 && minutes <= 59){
-            if( seconds>= 0 && seconds <= 59 ){
-                _horas = hours;
-                _minutos = minutes;
-                _segundos = seconds;
-            }else{
-                throw EgenericMessage("Seconds must be valid");    
-            }
-        }else{
-            throw EgenericMessage("Minutes must be valid");    
-        }
-    }else{
-        throw EgenericMessage("Hours must be valid");
-    }
-}
-
-Hours::Hours( const Hours& hours ){
-
+Hours::Hours( ){
+    _horas = 00;
+    _minutos = 00;
+    _segundos = 00;
 }
 
 void Hours::write(ostream& sOut) {
 	sOut << setfill('0') << setw (2) << _horas << ":"<< setfill('0') << setw (2) << _minutos << ":"<< setfill('0') << setw (2) << _segundos;
 }
-
-
-void Hours::read(istream& sIn) {
-	int n;
-	sIn >> n;
-}
-istream& operator >> (istream& hoursIn, Hours& hour) {
-	hour.read(hoursIn);
-	return hoursIn;
-}
-
-
 ostream& operator<<(ostream& hourOut, Hours& hour) {
 	hour.write(hourOut);
 	return hourOut;
 }
-//practica 1 
-bool Hours::operator==(const Hours& hour)const{
-	
-	return _horas == hour._horas && _minutos == hour._minutos && _segundos == hour._segundos;
+
+void Hours::setHora( int hours, int minutes, int seconds ){
+    _horas = hours;
+    _minutos = minutes;
+    _segundos = seconds;
 }
+istream& operator>>(istream &sIn, Hours &hour) {
+    int h, m, s;
+    char c;
+    sIn >> h;
+    sIn.get(c);
+    sIn >> m;
+    sIn.get(c);
+    sIn >> s;
+    if( h >= 0 && h <= 23 && 
+        m >= 0 && m <= 59 && 
+        s>= 0 && s <= 59 ){
+        hour.setHora( h, m, s );
+    }else{
+        throw EgenericMessage("Hours must be valid");
+    }
+    return sIn;
+}
+
 bool Hours::operator<(const Hours& hour)const{
     bool ok = false;
 	if( _horas < hour._horas ){

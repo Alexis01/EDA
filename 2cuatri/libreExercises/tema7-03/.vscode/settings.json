@@ -17,6 +17,7 @@
         "utility": "cpp",
         "ostream": "cpp",
         "iosfwd": "cpp",
-        "iomanip": "cpp"
+        "iomanip": "cpp",
+        "iostream": "cpp"
     }
 }
