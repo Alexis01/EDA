@@ -5,159 +5,94 @@
 #include <list>
 #include<iomanip>
 using namespace std;
-// throw EgenericMessage("Seconds must be valid");
+// throw invalid_argument("Seconds must be valid");
 typedef string Medico;
 typedef string Paciente;
-struct Cita{
-	Fecha fecha;
-	Paciente paciente;
-};
 class Consultorio{
 	private:
-		Medico medico;
-		Paciente paciente;
-		Fecha fecha;
-		//Para un medico tenemos un treeMap con la fecha y el paciente
-		HashMap< string, TreeMap<Fecha,Paciente> > dicMedPac;
+
+		HashMap< Medico, TreeMap<Fecha,Paciente> > _consultorio;
 	public:
+
 		Consultorio();
 		void nuevoMedico( Medico medico );
 		void pideConsulta( Paciente paciente, Medico medico, Fecha fecha);
 		Paciente siguientePaciente(Medico medico);
 		void atiendeConsulta(Medico medico);
-		list<Paciente> listaPacientes( Medico medico, Fecha dia );
+		list< pair<Fecha,Paciente> > listaPacientes( Medico medico, Fecha dia );
 		
 };
 Consultorio::Consultorio(){}
 void Consultorio::nuevoMedico( Medico medico ){
-	if( !dicMedPac.contains(medico) ){
-		TreeMap<Fecha, Paciente> arbolFechaPaciente;
-		dicMedPac.insert(medico, arbolFechaPaciente);
+
+	if( !_consultorio.contains(medico) ){
+		_consultorio.insert(medico, TreeMap<Fecha, Paciente>());
 	}
+
 }
+
 void Consultorio::pideConsulta( Paciente paciente, Medico medico, Fecha fecha ){
 
-	if (dicMedPac.contains(medico)) {
-
-		TreeMap<Fecha, Paciente> arbolFechaPaciente;
-		arbolFechaPaciente = dicMedPac.at(medico);
-
-		if (!arbolFechaPaciente.contains(fecha)) {
-			arbolFechaPaciente.insert(fecha, paciente);
-			dicMedPac.insert(medico, arbolFechaPaciente);
+	HashMap<Medico,TreeMap<Fecha,Paciente>>::Iterator it = _consultorio.find(medico);
+	
+	if(it == _consultorio.end()) throw invalid_argument("Medico no existente");
+	else{
+		
+		if( it.value().contains(fecha) ) throw invalid_argument("Fecha ocupada");
+		else{
+			it.value().insert( fecha, paciente );
 		}
-		else {
-			//throw invalid_argument("Fecha ocupada");
-			throw EgenericMessage("Fecha ocupada");
-		}
-	}else {
-		//throw invalid_argument("Medico no existente");
-		throw EgenericMessage("Medico no existente");
 	}
 }
+
 Paciente Consultorio::siguientePaciente( Medico medico ){
 	
-	Fecha fechaComp;
-	TreeMap<Fecha, Paciente> arbolFechaPaciente;
-	if (dicMedPac.contains(medico)) {
+	Paciente siguiente;
+	HashMap<Medico,TreeMap<Fecha,Paciente>>::Iterator it = _consultorio.find(medico);
 
-		
-		arbolFechaPaciente = dicMedPac.at(medico);
-
-		if (!arbolFechaPaciente.empty()) {
-
-			TreeMap<Fecha, Paciente>::Iterator it = arbolFechaPaciente.begin();
-
-			fechaComp = it.key();
-			it.next();
-
-			while (it != arbolFechaPaciente.end()) {
-				it.key() < fechaComp;
-
-				if (it.key() < fechaComp) {
-					fechaComp = it.key();
-				}
-
-				it.next();
-			}
+	if(it == _consultorio.end()) throw invalid_argument("Medico no existente");
+	else{
+		TreeMap<Fecha, Paciente>::Iterator itTreeMap = it.value().begin();
+		if (itTreeMap == it.value().end()) throw invalid_argument("No hay pacientes");
+		else{
+			siguiente = itTreeMap.value();
 		}
-		else {
-			throw EgenericMessage("No hay pacientes");
-		}
-
 	}
-	else {
-		throw EgenericMessage("Medico no existente");
-	}
-	return arbolFechaPaciente.at(fechaComp);
+	return siguiente;
 }
+
 void Consultorio::atiendeConsulta( Medico medico ){
 
-	TreeMap<Fecha, Paciente> arbolFechaPaciente;
-	if (dicMedPac.contains(medico)) {
+	HashMap<Medico,TreeMap<Fecha,Paciente>>::Iterator it = _consultorio.find(medico);
 
-		arbolFechaPaciente = dicMedPac.at(medico);
-		if (!arbolFechaPaciente.empty()) {
-
-			TreeMap<Fecha, Paciente>::Iterator it = arbolFechaPaciente.begin();
-
-			Fecha fechaComp = it.key();
-			it.next();
-
-			while (it != arbolFechaPaciente.end()) {
-				it.key() < fechaComp;
-
-				if (it.key() < fechaComp) {
-					fechaComp = it.key();
-				}
-
-				it.next();
-			}
-
-			arbolFechaPaciente.erase(fechaComp);
-
-		}else {
-			throw EgenericMessage("No hay pacientes");
+	if(it == _consultorio.end()) throw invalid_argument("Medico no existente");
+	else{
+		TreeMap<Fecha, Paciente>::Iterator itTreeMap = it.value().begin();
+		if (itTreeMap == it.value().end()) throw invalid_argument("No hay pacientes");
+		else{
+			it.value().erase( itTreeMap.key() );
 		}
-
-	}else {
-		throw EgenericMessage("Medico no existente");
 	}
 }
-list<Paciente> Consultorio::listaPacientes( Medico medico, Fecha dia ){
+list< pair<Fecha,Paciente> > Consultorio::listaPacientes( Medico medico, Fecha dia ){
 	
-	list<Paciente> pacientes;
-	
-	if( dicMedPac.contains(medico) ){
-		
-		TreeMap<Fecha, Paciente> arbolFechaPaciente;
-		arbolFechaPaciente = dicMedPac.at(medico);
-		
-		if( !arbolFechaPaciente.empty() ){
+	list< pair<Fecha,Paciente> > pacientes;
+	HashMap<Medico, TreeMap<Fecha,Paciente>>::Iterator it = _consultorio.find( medico );
 
-			TreeMap<Fecha, Paciente>::Iterator it = arbolFechaPaciente.begin();
-			while( it != arbolFechaPaciente.end() ) {
-				Fecha fkey = it.key();
-				if( fkey.getDay() == dia.getDay() ){
-					
-					string hora = std::to_string(fkey.getHour());
-					string minuto = std::to_string(fkey.getMinute());
+	if( it == _consultorio.end() ) throw invalid_argument("Medico no existente");
+	else{
 
-					if(minuto == "0") minuto = "00";
-					if(hora == "0") hora = "00";
-
-					Paciente result = it.value() + " " + hora + ":" + minuto;
-					pacientes.push_back( result ); 
-
-				}
-				it.next();
+		TreeMap<Fecha, Paciente>::Iterator itMap = it.value().begin();
+		while( itMap != it.value().end() ){
+			Fecha fAux = itMap.key();
+			if( fAux.getDay() == dia.getDay() ){
+				pair<Fecha,Paciente> par;
+				par.first = fAux;
+				par.second = itMap.value();
+				pacientes.push_back( par );
 			}
+			itMap.next();
 		}
-	}else{
-
-		throw EgenericMessage("Medico no existente");
-
 	}
-
 	return pacientes;
 }

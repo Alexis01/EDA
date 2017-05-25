@@ -47,8 +47,8 @@ bool resuelve() {
                 cout << "Doctor " << med << " dia " << d << '\n';
                 for (auto p : vec) {
                     cout << p.second << ' ';
-                    cout << setfill('0') << setw(2) << p.first.hora() << ':';
-                    cout << setfill('0') << setw(2) << p.first.minuto() << '\n';
+                    cout << setfill('0') << setw(2) << p.first.getHour() << ':';
+                    cout << setfill('0') << setw(2) << p.first.getMinute() << '\n';
                 }
                 cout << "---\n";
 			}
