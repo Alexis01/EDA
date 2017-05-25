@@ -11,6 +11,8 @@ using namespace std;
 // throw invalid_argument("Seconds must be valid");
 typedef string Medico;
 typedef string Paciente;
+//info para el médico
+//typedef TreeMap<Fecha,Paciente> InfoMedico;
 class Consultorio{
 	private:
 
