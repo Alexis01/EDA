@@ -17,7 +17,7 @@
 #include "Exceptions.h"
 #include <iostream>
 #include <iomanip>
-
+using namespace std;
 /**
  Implementaci�n del TAD Pila utilizando vectores din�micos.
 

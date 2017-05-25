@@ -4,6 +4,9 @@
 #include "HashMap.h"
 #include <list>
 #include<iomanip>
+#include "Fecha.h"
+#include "Exceptions.h"
+#include <stdexcept>
 using namespace std;
 // throw invalid_argument("Seconds must be valid");
 typedef string Medico;
