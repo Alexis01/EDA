@@ -36,6 +36,29 @@ void resuelve() {
                     cin >> dur;
                     ipud.addSong(song, singer, dur);
                 }
+                if( inst == "addToPlaylist" ){
+                    cin >> song;
+                    ipud.addToPlaylist( song );
+                } 
+                if( inst == "current" ){
+                    Can result = ipud.current();
+                    cout << "Current " << result << endl;
+                }
+                if( inst == "play" ){
+                    cout << "Sonando " << ipud.play() << endl;
+                }
+                if( inst == "totalTime" ){
+                    cout << "Tiempo total " << ipud.totalTime() << endl;
+                }
+                if( inst == "recent" ){
+                    int recent;
+                    cin >> recent;
+                    cout << "Las " << recent << " mas recientes" << endl;
+                    auto vec = ipud.recent( recent );
+                    for (auto p : vec) {
+                        cout << "\t " << p << endl; 
+                    }
+                }
             }catch(invalid_argument e) { 
                 cout << e.what() << '\n' << "---\n";
             }
