@@ -1,0 +1,29 @@
+addSong HumanTouch BruceSpringsteen 392
+addSong BornToRun BruceSpringsteen 270
+addToPlaylist BornToRun
+addToPlaylist HumanTouch
+play
+totalTime
+addSong LuckyTown BruceSpringsteen 207
+addToPlaylist LuckyTown
+play
+play
+deleteSong HumanTouch
+recent 2
+FIN
+play
+current
+FIN
+
+-----------------*********---------------
+Sonando BornToRun
+Tiempo total 392
+Sonando HumanTouch
+Sonando LuckyTown
+Las 2 mas recientes
+    LuckyTown
+    BornToRun
+----
+No hay canciones en la lista
+ERROR current
+----
