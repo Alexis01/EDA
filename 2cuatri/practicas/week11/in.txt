@@ -27,3 +27,53 @@ LuckyTown
 No hay canciones en la lista
 ERROR current
 ----
+
+/**********IN***********/
+addSong Una Artista 100
+addSong Dos Artista 123
+addSong Tres Artista 300
+addToPlaylist Una
+addToPlaylist Dos
+addToPlaylist Tres
+totalTime
+play
+totalTime
+play
+play
+recent 3
+addToPlaylist Una
+play
+recent 3
+recent 4
+play
+addSong Cuatro Artista 1000
+addToPlaylist Cuatro
+current
+play
+totalTime
+FIN
+
+/*********OUT*********/
+
+Tiempo total 523
+Sonando Una
+Tiempo total 423
+Sonando Dos
+Sonando Tres
+Las 3 mas recientes
+    Tres
+    Dos
+    Una
+Sonando Una
+Las 3 mas recientes
+    Una
+    Tres
+    Dos
+Las 4 mas recientes
+    Una
+    Tres
+    Dos
+No hay canciones en la lista
+Sonando Cuatro
+Tiempo total 0
+----

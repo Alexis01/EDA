@@ -19,64 +19,60 @@ auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin t
 
 #endif
 
-void resuelve() {
-     
-    while(true){
-        Ipud ipud;
-        Can song;
-        Art singer;
-        Dur dur;
-        string inst;
-        cin >> inst;
 
-        while( inst != "FIN" ){
-            try{
-                if( inst == "addSong" ){
-                    cin >> song;
-                    cin >> singer;
-                    cin >> dur;
-                    ipud.addSong(song, singer, dur);
+bool resuelve() {
+    string operacion;
+    cin >> operacion;
+    if (!cin)
+        return false;
+    Can tit; Art aut; Dur dur;
+    Ipud ipud;
+    while (operacion != "FIN") {
+        try {
+            if (operacion == "addSong") {
+                cin >> tit >> aut >> dur;
+                ipud.addSong(tit, aut, dur);
+            } else if (operacion == "addToPlaylist") {
+                cin >> tit;
+                ipud.addToPlaylist(tit);
+            } else if (operacion == "current") {
+                tit = ipud.current(); // aunque no se hace nada, puede producir error
+            } else if (operacion == "play") {
+                try {
+                    string tocando = ipud.current(); // para saber si la lista es vacía
+                    ipud.play();
+                    cout << "Sonando " << tocando << '\n';
+                } catch (invalid_argument e) {
+                    cout << "No hay canciones en la lista\n";
                 }
-                if( inst == "addToPlaylist" ){
-                    cin >> song;
-                    ipud.addToPlaylist( song );
-                } 
-                if( inst == "current" ){
-                    Can result = ipud.current();
-                    cout << "Current " << result << endl;
+            } else if (operacion == "totalTime") {
+                cout << "Tiempo total " << ipud.totalTime() << '\n';
+            } else if (operacion == "recent") {
+                int N;
+                cin >> N;
+                auto lista = ipud.recent(N);
+                if (lista.empty())
+                    cout << "No hay canciones recientes\n";
+                else {
+                    cout << "Las " << N << " mas recientes\n";
+                    for (auto const& s : lista)
+                        cout << "    " << s << '\n';
                 }
-                if( inst == "play" ){
-                     ipud.play();
-                }
-                if( inst == "totalTime" ){
-                    cout << "Tiempo total " << ipud.totalTime() << endl;
-                }
-                if( inst == "recent" ){
-                    int recent;
-                    cin >> recent;
-                    cout << "Las " << recent << " mas recientes" << endl;
-                    auto vec = ipud.recent( recent );
-                    for (auto p : vec) {
-                        cout << "\t " << p << endl; 
-                    }
-                    cout << "----" << endl;
-                }
-                if( inst == "deleteSong" ){
-                    cin >> song;
-                    ipud.deleteSong( song );
-                }
-            }catch(invalid_argument e) { 
-                cout << e.what() << '\n' << "---\n";
+            } else if (operacion == "deleteSong") {
+                cin >> tit;
+                ipud.deleteSong(tit);
             }
-            
-            cin >> inst;
+        } catch (invalid_argument e) {
+            cout << "ERROR " << e.what() << '\n';
         }
+        cin >> operacion;
     }
-   
-    
+    cout << "----\n";
+    return true;
 }
 
-int main() {
-    resuelve();
+int main(){
+    while (resuelve()){}
+        //return true;
     return 0;
 }
