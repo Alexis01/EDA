@@ -1,3 +1,20 @@
+
+addSong HumanTouch BruceSpringsteen 392
+addSong BornToRun BruceSpringsteen 270
+addToPlaylist BornToRun
+addToPlaylist HumanTouch
+play
+totalTime
+addSong LuckyTown BruceSpringsteen 207
+addToPlaylist LuckyTown
+play
+play
+deleteSong HumanTouch
+recent 2
+FIN
+play
+current
+FIN
 addSong Una Artista 100
 addSong Dos Artista 123
 addSong Tres Artista 300
@@ -21,3 +38,27 @@ current
 play
 totalTime
 FIN
+addSong Una Artista 100
+addSong Dos Artista 123
+addSong Tres Artista 300
+addToPlaylist Una
+addToPlaylist Dos
+play
+totalTime
+addToPlaylist Dos
+totalTime
+play
+addToPlaylist Dos
+totalTime
+play
+recent 10
+addToPlaylist Una
+play
+recent 10
+addSong Una Artista 100
+current
+addToPlaylist Otra
+FIN
+
+
+

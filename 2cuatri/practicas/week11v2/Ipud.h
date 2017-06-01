@@ -9,16 +9,14 @@ using namespace std;
 typedef string Can;
 typedef string Art;
 typedef int Dur;
-typedef list<Can>::iterator IterPl;
-typedef list<Can>::iterator IterHi;
 struct InfoSong{
 	Can name;
 	Art singer;
 	Dur dur;
 	bool isInPl;
 	bool isInHist;
-	IterPl refPlayList;
-	IterHi refHist;
+	list<Can>::iterator refPlayList;
+	list<Can>::iterator refHist;
 };
 typedef HashMap<Can, InfoSong>::Iterator _Iter;
 
@@ -31,13 +29,13 @@ class Ipud{
 
 	public:
 		Ipud();
-		void addSong(Can song, Art artist, Dur dur );
-		void addToPlaylist(Can song);
-		Can current();
-		void play();
-		int totalTime();
-		list<Can> recent(int n);
-		void deleteSong(Can song);
+		void addSong(const Can& song, const Art& artist, const Dur& dur );
+		void addToPlaylist(const Can& song);
+		Can current() const;
+		Can play();
+		int totalTime() const;
+		list<Can> recent(unsigned int& n) const;
+		void deleteSong(const Can& song);
 		~Ipud();
 };
 Ipud::Ipud(){
@@ -45,83 +43,86 @@ Ipud::Ipud(){
 }
 Ipud::~Ipud(){}
 
-void Ipud::addSong( Can song, Art singer, Dur dur ){
-	_Iter it = _ipud.find( song );
-	if( it == _ipud.end() ){
+void Ipud::addSong( const Can& song, const Art& artist, const Dur& dur ){
+	
+	if( !_ipud.contains( song ) ){
 		InfoSong info;
 		info.name = song;
-		info.singer = singer;
+		info.singer = artist;
 		info.dur = dur;
 		info.isInPl = false;
 		info.isInHist = false;
 		_ipud.insert(song, info );
 	}else{
-		throw invalid_argument("ERROR addSong");
+		throw invalid_argument("addSong");
 	}
 }
-void Ipud::addToPlaylist(Can song){
+void Ipud::addToPlaylist(const Can& song){
 	_Iter it = _ipud.find(song);
-	if( it == _ipud.end() ) throw invalid_argument("ERROR addToPlaylist");
+	if( it == _ipud.end() ) throw invalid_argument("addToPlaylist");
 	else{
 		list<Can>::iterator itPl = _playList.end();
 		InfoSong info = it.value();
 		if( !info.isInPl ){
-			it.value().refPlayList = _playList.insert( itPl, song);
+			itPl = _playList.insert( itPl, song);
+			it.value().refPlayList = itPl;
 			it.value().isInPl = true;
 			_totalPlayList += it.value().dur;
 		}
 				
 	}	
 }
-Can Ipud::current(){
-	if( _playList.empty() ) throw invalid_argument("ERROR current");
-	list<Can>::iterator itPl = _playList.begin();
-	Can result = (*itPl);
-	return result;
+Can Ipud::current() const{
+	if( _playList.empty() ) throw invalid_argument("current");
+	return _playList.front();
 }
-void Ipud::play(){
-	if( _playList.empty() ){
-		cout << "No hay canciones en la lista" << endl;
-		return;
-	}
-	//pillo del playlist y la elimino tb 
-	list<Can>::iterator itPl = _playList.begin();
-	Can played = (*itPl);
-	_playList.erase(itPl);
-	//la añado a history
-	_Iter it = _ipud.find( played );
-	list<Can>::iterator itHist = _history.begin();
-	if(it.value().isInHist){
-		//elimino de la historia y la inserto
-		_playList.erase( it.value().refHist );
-		it.value().refHist = _playList.insert( itHist, played);
-	}else{
+Can Ipud::play(){
+	Can song;
+	if( !_playList.empty() ){
+		//pillo del playlist y la elimino tb
+		song = _playList.front();
+		_Iter it = _ipud.find( song );
+		it.value().isInPl = false;
+		it.value().refPlayList = _playList.end();
+		//la añado a history
+		if(it.value().isInHist){
+			//elimino de la historia y la inserto
+			_playList.erase( it.value().refHist );	
+		}
+		it.value().isInHist = true;
 		//solo la inserto
-		it.value().refHist = _history.insert( itHist, played ); 
+		list<Can>::iterator itHist = _history.begin();
+		itHist =  _history.insert( itHist, song ); 
+		it.value().refHist = itHist;
+		_totalPlayList -= it.value().dur;
+		_playList.pop_front();
+	}else{
+		throw invalid_argument("play");
 	}
-	it.value().isInHist = true;
-	it.value().isInPl = false;
-	_totalPlayList -= it.value().dur;
+	return song;
 }
-int Ipud::totalTime(){
+int Ipud::totalTime() const{
 	return _totalPlayList;
 }
-list<Can> Ipud::recent( int n ){
-	int cont = 0;
-	list<Can> result;
-	list<Can>::iterator itHist = _history.begin();
-	bool end = false;
-	while(itHist != _history.end() && !end ){
-		result.push_back((*itHist));
-		cont++;
-		if( cont == n ){
-			end = true;
-		}
-		itHist++;
+list<Can> Ipud::recent( unsigned int& n ) const{
+	list<Can> auxList;
+	if (_history.size() == 0) {
+		n = 0;
 	}
-	return result;
+	else if (n > _history.size()) {
+		return _history;
+	}
+	else {
+		list<Can>::const_iterator it = _history.cbegin();
+		for (unsigned int i = 0; i < n; i++) {
+			auxList.push_back(*it);
+			++it;
+		}
+	}
+
+	return auxList;
 }
-void Ipud::deleteSong(Can song){
+void Ipud::deleteSong(const Can& song){
 	_Iter it = _ipud.find(song);
 	if( it == _ipud.end() ) throw invalid_argument("ERROR addToPlaylist");
 	else{

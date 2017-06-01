@@ -6,7 +6,7 @@
 using namespace std;
 
 #include "Ipud.h"
-
+#include "HashMap.h"
 typedef string Can;
 typedef string Art;
 typedef int Dur;
@@ -48,7 +48,7 @@ bool resuelve() {
             } else if (operacion == "totalTime") {
                 cout << "Tiempo total " << ipud.totalTime() << '\n';
             } else if (operacion == "recent") {
-                int N;
+                unsigned int N;
                 cin >> N;
                 auto lista = ipud.recent(N);
                 if (lista.empty())
