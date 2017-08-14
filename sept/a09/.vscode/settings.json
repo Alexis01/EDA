@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "fstream": "c",
+        "iostream": "c"
+    }
+}
