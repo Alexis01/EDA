@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>  // max, min
 using namespace std;
 
 #ifndef DOMJUDGE
@@ -7,20 +8,33 @@ ifstream in("test.txt");
 auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin to casos.txt
 #endif
 
-void solve( int data[], int N ){
-    int picos = 0, valles = 0;
-    //empezamos en pos = 1 por que así hay día anterior
-    int pos = 1;
-    while( pos < N - 1 ){
-        if(data[pos-1] < data[pos] &&  data[pos+1] < data[pos] ){
-            picos++;
-        }
-        if(data[pos-1] > data[pos] &&  data[pos+1] > data[pos] ){
-            valles++;
-        }
-        pos++;
+int solve( int *V, int N ){
+    //si solo hay uno
+    if( N == 1 ){
+        return V[0];
     }
-    cout << picos << " " << valles << endl;
+    if( N == 2 ){
+        return min(V[0], V[1]);
+    }
+    if( N > 2 ){
+        //si hay más de dos
+        int mitad = N/2;
+        //si está en la mitad
+        if( (V[mitad - 1] > V[mitad]) && (V[mitad] < V[mitad + 1]) ){
+            return V[mitad];
+        }
+        //si está en la mitad de la derecha
+        if( (V[mitad-1] > V[mitad]) && (V[mitad] >= V[mitad+1])  ){
+            return solve( V+mitad, N - mitad  );
+        }
+        //si está en la mitad de la iz
+        if( V[mitad - 1] < V[mitad] ){
+            return solve(V,mitad);
+        }
+        if( V[mitad - 1] == V[mitad]){
+            return min(solve(V,mitad),solve(V+mitad,N-mitad));
+        }
+    }
 }
 
 int main(){
@@ -33,7 +47,7 @@ int main(){
             cin >> data[posj];
             posj++;
         }
-        solve( data, numData );
+        cout << solve( data, numData ) << endl;
         pos++;
     }
     return 0;
