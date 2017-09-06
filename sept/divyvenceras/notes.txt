@@ -1,0 +1,13 @@
+template <class Problema, class Solución>
+Solución divide-y-vencerás (Problema x) {
+Problema x_1,...,x_k;
+Solución y_1,...,y_k;
+if (base(x))
+    return método-directo(x);
+else {
+    (x_1,..., x_k) = descomponer(x);
+    for (i=1; i<=k; i++)
+        y_i = divide-y-vencerás(x_i);
+    return combinar(x, y_1,..., y_k);
+    }
+}
