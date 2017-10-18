@@ -19,9 +19,9 @@ auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin t
 
 
 int solve(int v[],int N ){
-    int  n = 0, maxResta = 0;
-    while(n < N-1){
-        int resta = v[n] - v[n+1];
+    int  n = 0, maxResta = 0, acumUpZero = 1, acumDownZero = 1;
+    while(n < N){
+        
         if(resta > maxResta){
             maxResta = resta;
         }

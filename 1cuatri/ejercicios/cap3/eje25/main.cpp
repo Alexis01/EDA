@@ -1,10 +1,7 @@
 /*
-Derivar un algoritmo de coste lineal (con respecto a la longitud del vector) 
-que satisfaga la siguiente especicación:
-{ N ≥ 0 }
-    fun crédito-seg-máx( int A[N]) return int r
-{ r = (máx p, q : 0 ≤ p ≤ q ≤ N : crédito (p, q))}
-donde crédito (p, q) = (#i : p ≤ i < q : A[i] > 0) − (#i : p ≤ i < q : A[i] < 0) .
+Dado un conjunto de valores, la moda es el valor (o valores) que más se
+repite en dicho conjunto. Diseñar un algoritmo iterativo de coste lineal que dado un
+vector de enteros positivos menores que 1000 devuelva una moda del vector.
 
 */
 #include <iostream>
@@ -21,20 +18,32 @@ auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin t
 #endif
 
 
-int solve(int v[],int N ){
-    int  n = 0, maxResta = 0;
-    while(n < N-1){
-        int resta = v[n] - v[n+1];
-        if(resta > maxResta){
-            maxResta = resta;
-        }
+int solve1(int v[],int N ){
+    int  n = 0, frecAux[MAX] = {0};
+    while(n < N){
+        frecAux[v[n]]++;
         n++;
     }
-    return maxResta;
+    int pos = 1, mas_grande = 0, valor_moda = 0;
+    for ( ; pos <= N; pos++ ) {
+        if ( frecAux[pos] > mas_grande ) {
+            mas_grande = frecAux[pos];
+            valor_moda = pos;
+        }
+    }
+    return valor_moda;
 }
-
+int solve2(int v[],int N ){
+    int valor_moda = 0, contModa = 0;
+    int  n = 0;
+    while(n < N){
+        cout << v[n] << endl;
+        n++;
+    }
+    return valor_moda;
+}
 bool solveRecursiveGen(int v[], int n, int tam, int &maxResta){
-    if(tam - 1 == n){
+    /*if(tam - 1 == n){
         int resta =   v[n] - v[n + 1];
         cout << " v[n] " << v[n] << endl;
         cout << "" << v[] << endl;
@@ -49,7 +58,7 @@ bool solveRecursiveGen(int v[], int n, int tam, int &maxResta){
             }
             solveRecursiveGen(v,n+1, tam, maxResta);
         }
-    }
+    }*/
 }
 
 int solveRecursive(int V[], int n ){
@@ -69,7 +78,10 @@ int main(){
             posV++;
         }
         cout << "Iterative:\t ";
-        cout << solve( V,posV ) << endl;
+        cout << solve1( V,posV ) << endl;
+        cout << "Iterative----V2: \t ";
+        sort(V,V+longArray);
+        cout << solve2( V,posV ) << endl;
         //cout << "Recursive:\t ";
         //cout << solveRecursive(V, posV) << endl;
        

@@ -1,11 +1,8 @@
 /*
-Derivar un algoritmo de coste lineal (con respecto a la longitud del vector) 
-que satisfaga la siguiente especicación:
-{ N ≥ 0 }
-    fun crédito-seg-máx( int A[N]) return int r
-{ r = (máx p, q : 0 ≤ p ≤ q ≤ N : crédito (p, q))}
-donde crédito (p, q) = (#i : p ≤ i < q : A[i] > 0) − (#i : p ≤ i < q : A[i] < 0) .
-
+Diseñar un algoritmo iterativo de coste lineal que satisfaga la siguiente especicación:
+{N ≥ 0}
+    fun separación( bool A[N]) return bool r
+{r = ∃p : 0 ≤ p ≤ N : (∀i : 0 ≤ i < p : A[i]) ∧ (∀j : p ≤ j < N : ¬A[j])}
 */
 #include <iostream>
 #include <fstream>
@@ -70,8 +67,8 @@ int main(){
         }
         cout << "Iterative:\t ";
         cout << solve( V,posV ) << endl;
-        //cout << "Recursive:\t ";
-        //cout << solveRecursive(V, posV) << endl;
+        cout << "Recursive:\t ";
+        cout << solveRecursive(V, posV) << endl;
        
         pos++;
     }

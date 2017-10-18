@@ -1,14 +1,12 @@
 /*
-Derivar algoritmos de coste lineal (con respecto a la lon-gitud del vector),
-para resolver los siguientes problemas de segmento de longitud
-máxima:
+Derivar algoritmos de coste lineal (con respecto a la lon-gitud del vector) 
+para resolver los siguientes problemas de segmento de longitud máxima:
 { N ≥ 0 }
     fun seg-long-máx( int X[N]) return int r
 { r = (máx p, q : 0 ≤ p ≤ q ≤ N ∧ A(p, q) : q − p) }
 donde
 a ) A(p, q) = (∀i : p ≤ i < q : X[i] = 0) .
 b ) A(p, q) = (∀i, j : p ≤ i ≤ j < q : X[i] = X[j]) .
-
 */
 #include <iostream>
 #include <fstream>
