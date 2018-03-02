@@ -22,7 +22,7 @@ class Set {
 		int posFin;
 
 		bool isFull() const;
-		void binSearch(const T& x,bool& found,int& pos, int posIni, int posFin) const;
+		void binSearch(const T& x,bool& found,int& pos) const;
 		int binSearchAux(const T& x, int a, int b) const;
 		void shiftRightFrom(int i);
 		void shiftLeftFrom(int i);
@@ -54,8 +54,8 @@ Set<T>::Set(int initCapacity) {
 	capacity = initCapacity;
 	elems = new T[capacity];
 	// Refact 
-	posIni = 0;
-	posFin = 0;
+	/*posIni = 0;
+	posFin = 0;*/
 }
 
 template<class T>
@@ -66,8 +66,8 @@ Set<T>::Set(const Set<T>& set) {
 	for (int i = 0; i < size; i++)
 		elems[i] = set.elems[i];
 	// Refact
-	posIni = 0;
-	posFin = capacity - 1;
+	/*posIni = 0;
+	posFin = capacity - 1;*/
 }
 
 template<class T>
@@ -80,14 +80,20 @@ Set<T>::~Set() {
 
 template<class T>
 void Set<T>::removeMax(){
-	if (posFin > 0) {
+	/*if (posFin > 0) {
 		posFin -= 1;
+	}*/
+	if(size > 0){
+		size--;
 	}
 }
 template<class T>
 void Set<T>::removeMin(){
-	if (posIni > 0) {
+	/*if (posIni > 0) {
 		posIni += 1;
+	}*/
+	if (size > 0) {
+		remove(elems[0]); // shift
 	}
 }
 
@@ -112,13 +118,13 @@ void Set<T>::add(const T& x){
 	bool found;
 	int pos;
 
-	binSearch(x,found,pos, posIni, posFin); // Refact
+	binSearch(x,found,pos); // Refact
 	if (!found){
 		shiftRightFrom(pos+1);
 		elems[pos+1] = x;
 		size++;
 		// Refact
-		posFin += 1;
+		/*posFin += 1;*/
 		if (isFull()) reallocate();
 	}
 }
@@ -140,7 +146,7 @@ bool Set<T>::contains(const T& x) const {
 	bool found;
 	int pos;
 
-	binSearch(x,found,pos, posIni, posFin);
+	binSearch(x,found,pos);
 	return found;
 }
 
@@ -214,12 +220,12 @@ int Set<T>::binSearchAux(const T& x, int a, int b) const {
 }
 
 template<class T>
-void Set<T>::binSearch(const T& x, bool& found, int& pos, int posIni, int posFin) const {
+void Set<T>::binSearch(const T& x, bool& found, int& pos) const {
 	// Pre: los size primeros elementos de elems están ordenados
 	//      size >= 0
 
-	// pos = binSearchAux(x, 0, size - 1); // Refact
-	pos = binSearchAux(x, posIni, posFin);
+	pos = binSearchAux(x, 0, size - 1); // Refact
+	//pos = binSearchAux(x, posIni, posFin);
 	found = (pos >= 0) && (pos < size) && (elems[pos] == x);
 
 	// Post : devuelve el mayor índice i (0 <= i <= size-1) que cumple
