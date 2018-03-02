@@ -157,11 +157,12 @@ void Set<T>::erase(){
 
 template<class T>
 void Set<T>::write(ostream& sOut){
-	sOut << "{";
+	// sOut << "{";
 	for (int i = 0; i < size-1; i++)
-		sOut << elems[i] << ",";
+		//sOut << elems[i] << ",";
+		sOut << elems[i] << " ";
 	if (size > 0) sOut << elems[size-1];
-	sOut << "}";
+	// sOut << "}";
 }
 
 template<class T>
