@@ -19,29 +19,13 @@ auto cinbuf = std::cin.rdbuf(in.rdbuf()); //save old buf and redirect std::cin t
 
 #endif
 
-template<class T>
-void solve(Set<T> &set, int numk, int numElems){
-    /*int diff = numElems - numk;
-    for (int i = 0; i < diff; i++) set.removeMin();
-    for (int i = 0; i < numk; i++) {
-        set.getMin();
-        if ( i == numk - 1 ) {
-            cout << set.getMin();
-        } else {
-            cout << set.getMin() << " ";
-        }
-        set.removeMin();
-    }
-    cout << endl;*/
-}
+
 
 int main() {
     
     int numK;
 	char caracter;
-	
 	int numElementos = 0;
-	int num = 0;
 	cin >> caracter;
 	while (!cin.fail()) {
 		cin >> numK;
@@ -52,48 +36,42 @@ int main() {
 			numElementos = 0;
 			cin >> num;
 			while (num != -1) {
-				
-				if(numElementos <= numK && !set->contains(num)){
+				if(numElementos < numK && !set->contains(num)){
 					set->add(num);
 					numElementos++;
 				}else{
-					if( numElementos > numK){
-						if( num > set->getMin()){
+					if( numElementos >= numK){
+						if (num > set->getMin() && !set->contains(num)){
 							set->removeMin();
 							set->add(num);
 						}
 					}
 				}
-				
 				cin >> num;
 			}
 			cout<< *set << endl;
-			// solve(*set, numK, numElementos);
-            /*cout<< *set << endl;
-            cout << " Max num " << set->getMax() << endl;
-            set->removeMax();
-            cout << " Min num " <<set->getMin() << endl;
-            set->removeMin();
-            cout<< *set << endl;*/
 		}
 		else if (caracter == 'P') {
 			string fin;
 			numElementos = 0;
 			cin >> fin;
 			while (fin != "FIN") {
-				setPalabra->add(fin);
-				cin >> fin;
-				if (!setPalabra->contains(fin)) {
+				if (numElementos < numK && !setPalabra->contains(fin)){
+					setPalabra->add(fin);
 					numElementos++;
 				}
+				else{
+					if (numElementos >= numK){
+						if (fin > setPalabra->getMin() && !setPalabra->contains(fin)){
+							setPalabra->removeMin();
+							setPalabra->add(fin);
+						}
+					}
+				}
+				cin >> fin;
+				
 			}
-			solve(*setPalabra, numK, numElementos);
-            /*cout<< *setPalabra << endl;
-            cout << " Max Palabra " << setPalabra->getMax() << endl;
-            setPalabra->removeMax();
-            cout << " Min Palabra " << setPalabra->getMin() << endl;
-            setPalabra->removeMin();
-            cout<< *setPalabra << endl;*/
+			cout << *setPalabra << endl;
 		}
 		cin >> caracter;
         delete set;
@@ -101,4 +79,3 @@ int main() {
 	}
 	return 0;
 }
-
