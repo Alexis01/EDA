@@ -38,11 +38,18 @@ bool resuelveCaso() {
 						}
 					}
 				}
+			} else {
+				if (line[i] == '}' || line[i] == '}' || line[i] == ']') {
+					datos.push(line[i]);
+				}
 			}
 		}
 	}
-    cout << line << endl;
-	cout << datos.size() << endl;
+    if(datos.size() == 0 ){
+		cout << "YES" << endl;
+	}else{
+		cout << "NO" << endl;
+	}
 	
     // escribir sol
     
@@ -62,7 +69,6 @@ int main() {
 
     while (resuelveCaso())
         ;
-	 cout << "siu" << endl;
    
     // Para restablecer entrada. Comentar para acepta el reto
      #ifndef DOMJUDGE // para dejar todo como estaba al principio
