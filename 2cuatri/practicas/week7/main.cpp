@@ -56,7 +56,8 @@ Arbin<int> reconstruir( List<int> pO, List<int> iO ){
 		while( !iO.empty() ){
 			currentInIz = pO.back();
 			pO.pop_back();
-			inIzq.push_front( currentInIz );
+			in
+			Izq.push_front( currentInIz );
 
 		}
 		//Postorden izquierdo
