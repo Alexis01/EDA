@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "stdexcept": "cpp",
+        "iomanip": "cpp",
+        "list": "cpp",
+        "ostream": "cpp"
+    }
+}

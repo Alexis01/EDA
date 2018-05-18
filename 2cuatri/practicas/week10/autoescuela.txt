@@ -1,0 +1,23 @@
+alta Luis PACO
+alta Marta PACO
+es_alumno Luis PACO
+es_alumno Marta RAMON
+examen PACO 0
+actualizar Marta 10
+examen PACO 10
+examen JUAN 10
+alta Marta JUAN
+puntuacion Marta
+actualizar Marta 10
+examen JUAN 20
+actualizar Miguel 5
+aprobar Marta
+examen JUAN 20
+FIN
+puntuacion Alejandro
+alta Alejandro ISABEL
+actualizar Alejandro 20
+puntuacion Alejandro
+aprobar Alejandro
+puntuacion Alejandro
+FIN
